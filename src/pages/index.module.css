@@ -1,0 +1,88 @@
+.background_image {
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 200px;
+    z-index: 1 !important;
+}
+
+.searchbox_container {
+    margin: 0 auto;
+    margin-top: 10rem;
+    background-color: #25db55;
+    padding-top: 0.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+    border-radius: 0.6rem;
+    width: 60%;
+}
+
+.searchbox_input {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.searchbox_input_field {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    height: 35px;
+    border-radius: 0.6rem;
+    border-width: 0;
+    padding: 10px;
+    padding-right: 17%;
+    font-size: medium;
+}
+
+.searchbox_input_field:focus {
+    outline: none !important;
+    border: 1px solid green;
+    background-color: #e3feea;
+    box-shadow: 0 0 10px green;
+    height: 33px;
+}
+
+.searchbox_input_submit_btn { 
+    cursor: pointer;
+    padding-top: 8px;
+    padding-right: 15px;
+    padding-left: 15px;
+    position: absolute;
+    right: 7px;
+    background-color: black;
+    border-radius: 0.3rem;
+    color: #FFF;
+    height: 28px;
+    text-align: center;
+    border-style: solid;
+    border-color: #242424;
+    border-width: 3px;
+}
+
+.searchbox_input_submit_btn:hover {
+    transition: all .2s ease;
+    color: black;
+    background-color: transparent;
+}
+
+.searchbox_container h2 {
+    font-size: xx-large;
+}
+
+.searchbox_container h3 {
+    font-weight: lighter;
+}
+
+.searchbox_options {
+    display: block;
+    margin-top: 2rem !important;
+    margin: 0 auto;
+    background-color: white;
+    width: 100%;
+    height: 200px;
+    border-radius: 0.2rem;
+}
