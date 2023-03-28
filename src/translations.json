@@ -1,0 +1,26 @@
+{
+    "en": {
+        "header" : {
+            "messages": "Messages",
+            "log_in": "Log in"
+        },
+        "homepage": {
+            "work_awaits": "Work awaits!",
+            "work_awaits_description": "We connect small jobs and job seekers! Search the advertisements to find suitable jobs",
+            "work_awaits_searchbox": "What are you looking for?",
+            "work_awaits_searchbox_get_started": "Go"
+        }
+    },
+    "fi" : {
+        "header" : {
+            "messages": "Viestit",
+            "log_in": "Kirjaudu sisään"
+        },
+        "homepage": {
+            "work_awaits": "Työ odottaa tekijäänsä!",
+            "work_awaits_description": "Yhdistämme työn ja tekijän! Etsi ilmoituksista sinulle mieluisia töitä",
+            "work_awaits_searchbox": "Millaista työtä etsit?",
+            "work_awaits_searchbox_get_started": "Etsi"
+        }
+    }
+}

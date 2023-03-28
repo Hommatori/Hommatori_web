@@ -1,0 +1,78 @@
+.header {
+    width: 100%;
+    background-color: #25db55;
+    z-index: 1000;
+    height: 60px;
+    position: fixed;
+    border-bottom-style: solid;
+    border-bottom-color: #2424242b;
+    border-bottom-width: 1px;
+}
+
+.header_wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.logo {
+    cursor: pointer;
+    margin-left: -4px;
+}
+
+.header_navigation_icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 30px;
+}
+
+.messages_btn {    
+    cursor: pointer;
+    color: white;
+    background-color: #25db55;
+    display: inline-block;    
+    padding: 0.5rem 1.2rem;
+    text-align: center;
+    font-weight: bold;
+    transition-duration: .2s;
+    border-style: solid;
+    border-color: white;
+    border-radius: 0.6rem;
+    border-width: 3px;
+}
+
+.messages_btn:hover {
+    transition: all .2s ease;
+    color: #24e357;
+    background-color: white;
+}
+
+.log_in_btn {
+    cursor: pointer;
+    color: white;
+    background-color: #242424;
+    display: inline-block;    
+    padding: 0.5rem 1.2rem;
+    text-align: center;
+    font-weight: bold;
+    transition-duration: .2s;
+    border-style: solid;
+    border-color: #242424;
+    border-radius: 0.6rem;
+    border-width: 3px;
+}
+
+.log_in_btn:hover {
+    transition: all .2s ease;
+    color: black;
+    background-color: transparent;
+}
