@@ -1,0 +1,50 @@
+{
+  "fi": {   
+    "navbar" : {
+      "messages": "Viestit",
+      "log_in": "Kirjaudu sisään"
+    },
+    "homepage": {
+      "metadata": {
+        "title": "Hommatori.fi - Löydä pieniä töitä tai ilmoita työmahdollisuudesta ilmaiseksi.",
+        "description": "Hommatori.fi on ilmainen pienten hanttihommien ja avuntarpeiden jakoalusta, jossa avun tarjoaja ja tekijä kohtaavat.",
+        "keywords": "työ, töitä, apu, auta, palkka, raha, palvelu, hyväntekeväisyys"
+      },
+      "work_awaits": "Työ odottaa tekijäänsä!",
+      "work_awaits_description": "Yhdistämme pienet työt ja tekijän! Etsi ilmoituksista sinulle mieluisia töitä",
+      "work_awaits_searchbox": "Hae ilmoituksista",
+      "get_started": "Etsi",
+      "region_entire_finland": "Kaikki maakunnat",
+      "searchbox_publish": "Haluatko julkaista ilmoituksen?",
+      "publish_as_jobseeker": "Haluan ilmoittautua työnhakijaksi",
+      "publish_as_employer": "Haluan tarjota työtä",
+      "ad_type_all": "Kaikki ilmoitukset",
+      "ad_type_seekers": "Työnhakijat",
+      "ad_type_offers": "Työtarjoukset"
+    }    
+  },  
+  "en": {
+    "navbar" : {
+      "messages": "Messages",
+      "log_in": "Log in"
+    },
+    "homepage": {
+      "metadata": {
+        "title": "Hommatori.fi - Find small jobs or find a worker for your small job for free.",
+        "description": "Hommatori.fi is a free platform for those who seek for small jobs and those who seek workers.",
+        "keywords": "work, works, help, support, money, service, volunteer"
+      },
+      "work_awaits": "Work awaits!",
+      "work_awaits_description": "We connect small jobs and job seekers! Search the advertisements to find jobs",
+      "work_awaits_searchbox": "Search the ads",
+      "get_started": "Go",
+      "region_entire_finland": "All regions",
+      "searchbox_publish": "Want to publish an ad?",
+      "publish_as_jobseeker": "I am a job seeker",
+      "publish_as_employer": "I want to offer a job",
+      "ad_type_all": "All ad types",
+      "ad_type_seekers": "Job seekers",
+      "ad_type_offers": "Job offers"
+    }
+  }
+}
