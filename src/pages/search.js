@@ -1,17 +1,15 @@
 import Head from 'next/head'
 import styles from '../styles/search.module.css'
-
-// by exporting getStaticProps, Next.js will pre-render this page (Search) at build time using the props returned by getStaticProps
-export async function getStaticProps() {
-        
-    return {
-        props: {}, // will be passed to the Search component as props
-    }
-}
+import { useSearchParams } from 'next/navigation'
 
 // this is the search results page that user sees after performing a search. It receives page language translations as props
 export default function Search({ translations }) {
     
+    const searchParams = useSearchParams() // gets a read-only URLSearchParams object
+    const query = searchParams.get('q') // get query param
+    const region = searchParams.get('reg') // get region param
+    const type = searchParams.get('type') // get ad type param
+    console.log(query + " " + region + " " + type)
 
     return (
         <>

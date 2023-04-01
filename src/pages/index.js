@@ -56,7 +56,7 @@ export default function Home({ translations }) {
                             </div>
                             <div className={styles.selections_container}>
                                 <select className={styles.region_select} id='region_select'>
-                                    <option value={"all_regions"}>{translations.homepage.region_entire_finland}</option>
+                                    <option value={"all"}>{translations.homepage.region_entire_finland}</option>
                                     {
                                         Object.keys(regions).map((item, index) => {
                                             return <option key={index} value={item}>{item}</option>
@@ -64,9 +64,9 @@ export default function Home({ translations }) {
                                     }
                                 </select>
                                 <select className={styles.ad_type_select} id='ad_type_select'>
-                                    <option value={"all_ads"}>{translations.homepage.ad_type_all}</option>
-                                    <option value={"jobseekers"}>{translations.homepage.ad_type_seekers}</option>
-                                    <option value={"joboffers"}>{translations.homepage.ad_type_offers}</option>
+                                    <option value={"all"}>{translations.homepage.ad_type_all}</option>
+                                    <option value={"seekers"}>{translations.homepage.ad_type_seekers}</option>
+                                    <option value={"offers"}>{translations.homepage.ad_type_offers}</option>
                                 </select>
                             </div>                       
                         </div>                    
