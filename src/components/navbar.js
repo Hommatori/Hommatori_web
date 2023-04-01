@@ -1,4 +1,4 @@
-import styles from './navbar.module.css'
+import styles from '../styles/navbar.module.css'
 import logo from './../../public/logo.svg'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -19,7 +19,7 @@ export default function Navbar({ locale, translations }) {
                 </Link>
                 <div className={styles.navbar_navigation_icons}>                    
                     <p className={styles.messages_btn}>{translations.messages}</p>
-                    <p className={styles.log_in_btn}>{translations.log_in}</p>
+                    <Link href="/account" className={styles.log_in_btn}>{translations.log_in}</Link>
                     <div className={styles.language_selector}>
                         {
                             locale == "fi" ?  <Link className={styles.link} href="/en">ENGLISH</Link>
