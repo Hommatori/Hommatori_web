@@ -2,8 +2,11 @@ import styles from '../styles/navbar.module.css'
 import logo from './../../public/logo.svg'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
-export default function Navbar({ locale, translations }) {
+// this is the navigation bar of the website. It receives locale (read: current language) and language translations as props
+export default function Navbar({locale, translations }) {
+    const router = useRouter()
 
     return(
         <div className={styles.navbar}>
@@ -22,9 +25,9 @@ export default function Navbar({ locale, translations }) {
                     <Link href="/account" className={styles.log_in_btn}>{translations.log_in}</Link>
                     <div className={styles.language_selector}>
                         {
-                            locale == "fi" ?  <Link className={styles.link} href="/en">ENGLISH</Link>
+                            locale == "fi" ?  <Link className={styles.link} href={router.asPath} locale="en">ENGLISH</Link>
                             :
-                            <Link className={styles.link} href="/" locale="fi">SUOMI</Link>
+                            <Link className={styles.link} href={router.asPath} locale="fi">SUOMI</Link>
                         }
                     </div>
                 </div>
