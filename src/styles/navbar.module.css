@@ -4,6 +4,7 @@
     z-index: 1000;
     height: 55px;
     position: fixed;
+    top: 0;
     border-bottom-style: solid;
     border-bottom-color: #2424242b;
     border-bottom-width: 1px;
@@ -60,16 +61,17 @@
 .log_in_btn {
     cursor: pointer;
     color: white;
-    background-color: #242424;
+    background-color: black;
     display: inline-block;    
     padding: 0.4rem 1.1rem;
     text-align: center;
     font-weight: bold;
     transition-duration: .2s;
     border-style: solid;
-    border-color: #242424;
+    border-color: black;
     border-radius: 0.4rem;
     border-width: 3px;
+    text-decoration: none;
 }
 
 .log_in_btn:hover {

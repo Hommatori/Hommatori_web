@@ -1,16 +1,32 @@
+.background_img_wrapper {
+    height: 915px;
+    width: 100vw;
+    box-sizing: border-box;
+    box-shadow: inset 0 -70px 40px 0 white;
+}
+
 .background_img {
     position: absolute;
     top: 0;
     left: 0;
-    max-height: 850px;
+    max-height: 900px;
     z-index: -1000;
     width: 100%;
     object-fit: cover;
 }
 
 .searchbox_container {
-    margin: 0 auto;
-    margin-top: 150px;
+    max-width: 1150px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 205px; 
+    margin-left: auto; 
+    margin-right: auto;   
+}
+
+.searchbox_inner_container {    
+    margin: 0 auto;    
     background-color: #25db55;
     padding-top: 0.3rem;
     padding-left: 2rem;
@@ -88,7 +104,7 @@
     width: 30px;
     text-align: center;
     border-style: solid;
-    border-color: #242424;
+    border-color: black;
     border-width: 3px;
 }
 
