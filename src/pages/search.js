@@ -18,8 +18,8 @@ export async function getServerSideProps(context) {
         offset = context.query.o
     }
     let dbResponse = []
-
-    if(type === 'all' && region === 'all' && query === ''){
+    
+    if(type === 'all' && region === 'all' && query === '' && order == undefined && offset == 0){
         const dbQuery = await fetch(`http://localhost:8080/ad/`)
         dbResponse = await dbQuery.json()
     } else {
