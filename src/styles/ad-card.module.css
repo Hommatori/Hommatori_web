@@ -1,0 +1,52 @@
+.cardWrapper {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    flex-flow: row wrap;
+    gap: 20px;
+}
+
+.singleAd {
+    width: calc(28.8%);
+    background-color: rgb(249, 249, 249);
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.4rem;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.singleAdImage {
+}
+
+.singleAdData {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.singleAdDataTop {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.header {
+    font-size: larger;
+    font-weight: bold;
+}
+
+.price {
+    font-size: large;
+    font-weight: bold;
+    color: #04b733;
+}
+
+.description {
+    color: #777777;
+}
+
+.singleAdDataBottom {
+    display: flex;
+}

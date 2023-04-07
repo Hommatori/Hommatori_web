@@ -1,0 +1,71 @@
+.main {
+    padding-top: 55px;
+    max-width: 1200px;
+    margin-left: auto; 
+    margin-right: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.newSearchContainer {
+    margin-top: 60px;
+    min-height: 80px;
+    background-color: black;
+    color: white;
+    border-top-left-radius: 0.4rem;
+    border-top-right-radius: 0.4rem;
+    padding: 20px;
+}
+
+.filters {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #25db55;
+    border-bottom-left-radius: 0.4rem;
+    border-bottom-right-radius: 0.4rem;
+}
+
+.filter_selectWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 33.33%;
+}
+
+.filter_select {
+    background-color: white;
+    width: 210px;
+    height: 45px;
+    border-radius: 0.4rem;
+    border-width: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: medium;
+    cursor: pointer;
+}
+
+.filter_pageNumber {
+    text-align: center;
+    width: 33.33%;
+    cursor: default;
+}
+
+.filter_pageNumber span {
+    font-weight: bolder;
+}
+
+.filter_display {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 33.33%;
+    gap: 10px;
+}
+
+.display_btn {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}

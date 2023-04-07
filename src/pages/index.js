@@ -13,9 +13,9 @@ export default function Home({ translations }) {
     // Submit() collects search parameters and enters the search page with URL query params
     function Submit() {
         let input = document.getElementById('input').value
-        let region = document.getElementById('region_select').value.toLowerCase()
+        let region = document.getElementById('region_select').value
         let ad_type = document.getElementById('ad_type_select').value
-        router.push('/search?q='+ input +'&reg='+ region + '&type=' + ad_type)
+        router.push('/search' + '?type=' + ad_type + '&reg='+ region + '&q='+ input)     
     }
 
     return (
@@ -56,7 +56,7 @@ export default function Home({ translations }) {
                             </div>
                             <div className={styles.selections_container}>
                                 <select className={styles.region_select} id='region_select'>
-                                    <option value={"all"}>{translations.homepage.region_entire_finland}</option>
+                                    <option value={'all'}>{translations.homepage.region_entire_finland}</option>
                                     {
                                         Object.keys(regions).map((item, index) => {
                                             return <option key={index} value={item}>{item}</option>
@@ -64,12 +64,12 @@ export default function Home({ translations }) {
                                     }
                                 </select>
                                 <select className={styles.ad_type_select} id='ad_type_select'>
-                                    <option value={"all"}>{translations.homepage.ad_type_all}</option>
-                                    <option value={"seekers"}>{translations.homepage.ad_type_seekers}</option>
-                                    <option value={"offers"}>{translations.homepage.ad_type_offers}</option>
+                                    <option value={'all'}>{translations.homepage.ad_type_all}</option>
+                                    <option value={'jobseeker'}>{translations.homepage.ad_type_seekers}</option>
+                                    <option value={'joboffer'}>{translations.homepage.ad_type_offers}</option>
                                 </select>
-                            </div>                       
-                        </div>                    
+                            </div>
+                        </div>
                     </div>
 
                     <div className={styles.publish_ad_container}>
