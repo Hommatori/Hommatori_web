@@ -17,7 +17,7 @@ export default function Navbar({locale, translations }) {
                         src={logo}
                         height={37}
                         alt="HOMMATORI"
-                        priority={true}
+                        as="image"
                     />
                 </Link>
                 <div className={styles.navbar_navigation_icons}>                    

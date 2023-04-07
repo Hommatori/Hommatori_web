@@ -21,7 +21,21 @@
       "ad_type_all": "Kaikki ilmoitukset",
       "ad_type_seekers": "Työnhakijat",
       "ad_type_offers": "Työtarjoukset"
-    }    
+    },
+    "search": {
+      "list_of_months": ["tam", "hel", "maa", "huh", "tou", "kes", "hei", "elo", "syy", "lok", "mar", "jou"],
+      "today": "tänään",
+      "newest": "uusin ilmoitus",
+      "oldest": "vanhin ilmoitus",
+      "lowest_salary": "alin hintapyyntö",
+      "higest_salary": "suurin hintapyyntö",
+      "lowest_offer": "alin tarjous",
+      "higest_offer": "suurin tarjous",
+      "lowest_price": "halvin",
+      "higest_price": "kallein",
+      "page": "sivu",
+      "published": "julkaistu"
+    }
   },  
   "en": {
     "navbar" : {
@@ -45,6 +59,20 @@
       "ad_type_all": "All ad types",
       "ad_type_seekers": "Job seekers",
       "ad_type_offers": "Job offers"
+    },
+    "search": {
+      "list_of_months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      "today": "today",
+      "newest": "newest ad",
+      "oldest": "oldest ad",
+      "lowest_salary": "lowest salary request",
+      "higest_salary": "higest salary request",
+      "lowest_offer": "lowest offer",
+      "higest_offer": "higest offer",
+      "lowest_price": "cheapest",
+      "higest_price": "priciest",
+      "page": "page",
+      "published": "published on"
     }
   }
 }
