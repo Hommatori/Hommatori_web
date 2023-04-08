@@ -55,17 +55,64 @@
     font-weight: bolder;
 }
 
-.filter_display {
+.filter_display_wrapper {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     width: 33.33%;
-    gap: 10px;
 }
 
-.display_btn {
+.filter_displayBtnLeft {
+    transition: all 0.1s;
+    height: 45px;
+    width: 48px;
+    border-top-left-radius: 0.4rem;
+    border-bottom-left-radius: 0.4rem;
+    background-color: white;
     display: flex;
-    cursor: pointer;
     align-items: center;
     justify-content: center;
+    margin-right: 3px;
+    cursor: pointer;
+}
+
+.filter_displayBtnLeft:hover {
+    background-color: rgb(223, 223, 223);
+}
+
+.filter_displayBtnRight {
+    transition: all 0.1s;
+    height: 45px;
+    width: 48px;
+    border-top-right-radius: 0.4rem;
+    border-bottom-right-radius: 0.4rem;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 3px;
+    cursor: pointer;
+}
+
+.filter_displayBtnRight:hover {
+    background-color: rgb(223, 223, 223);
+}
+
+.verticalDivider {
+    border-left: 3px solid #25db55;
+    height: 45px;
+}
+
+.adListContainer {
+    margin-top: 30px;
+}
+
+.noResultsHeader {
+    text-align: center;
+    font-weight: bolder;
+    font-size: large;
+}
+
+.noResultsTips {
+    text-align: center;
 }

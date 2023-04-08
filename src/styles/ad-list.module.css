@@ -1,11 +1,36 @@
+.firstSingleAd {
+    transition: all 0.1s;
+    padding-left: 10px;
+    padding-right: 10px; 
+    padding-top: 15px;
+    padding-bottom: 15px;
+    max-height: 160px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    cursor: pointer;
+}
+
+.firstSingleAd:hover {    
+    background-color: #02fb4419;
+}
+
 .singleAd {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    height: 160px;
+    transition: all 0.1s;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    max-height: 160px;
     display: flex;
     flex-direction: row;
     border-top: 2px solid #25db55;
     gap: 15px;
+    cursor: pointer;
+}
+
+.singleAd:hover {
+    background-color: #02fb4419;
 }
 
 .singleAdImage {
@@ -17,14 +42,38 @@
 .singleAdData {
     width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;    
 }
 
-.singleAdDataLeft {
+.singleAdDataTop {
     display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-right: 150px;
+    max-height: 120px;
 }
 
-.singleAdDataRight {
-    display: flex;
+.singleAdDataBottom {
+    display: flex;    
+    justify-content: space-between;
+    font-size: 15px;
+    margin-top: 15px;
+}
+
+.header {
+    font-size: larger;
+    font-weight: bold;
+}
+
+.description {
+    color: #777777;
+    overflow: hidden;
+    font-size: 15px;
+}
+
+.price {
+    font-size: large;
+    font-weight: bold;
+    color: #04b733;
 }

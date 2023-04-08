@@ -30,21 +30,25 @@ export default function Card({ data, translations }) {
         <div className={styles.cardWrapper}>
             { data.map(item => {
                 return <div className={styles.singleAd} key={item.adid}>
-                    <Image
-                        height={item.image != null ? 180 : 0}
-                        className={styles.singleAdImage}
-                        src={item.image ? item.image : ""}
-                        alt="hommatori"
-                        as="image"
-                    />
+                    {
+                        item.image != null ?
+                        <Image
+                            height={item.image != null ? 180 : 0}
+                            className={styles.singleAdImage}
+                            src={item.image ? item.image : ""}
+                            alt="hommatori"
+                            as="image"
+                        />
+                        : <></>
+                    }                    
                     <div className={styles.singleAdData}>
                         <div className={styles.singleAdDataTop}>
-                            <div className={styles.header}>{item.header}</div>
-                            <div className={styles.price}>hintapyyntö {item.price} €</div>
+                            <div className={styles.header}>{item.header}</div>                            
                             <div className={styles.description}>{item.description}</div>
                         </div>
                         <div className={styles.singleAdDataBottom}>
-                            { translations.search.published } { getDate(item.date) }
+                            <div className={styles.price}>{item.price} €</div>
+                            { getDate(item.date) }
                         </div>
                     </div>
                 </div>
