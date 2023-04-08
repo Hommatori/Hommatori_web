@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/index.module.css'
 import background_img from '../../public/homepage_background.jpg'
-import Link from 'next/link'
 import regions from '../json/regions'
 import Image from 'next/image'
 import { useRouter } from 'next/router'

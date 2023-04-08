@@ -1,5 +1,4 @@
 .cardWrapper {
-    margin-top: 50px;
     display: flex;
     flex-direction: column;
     flex-flow: row wrap;
@@ -7,29 +6,37 @@
 }
 
 .singleAd {
+    transition: all 0.1s;
     width: calc(28.8%);
-    background-color: rgb(249, 249, 249);
+    height: 150px;
+    background-color: rgb(251, 251, 251);
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     border-radius: 0.4rem;
     padding: 20px;
     cursor: pointer;
+}
+
+.singleAd:hover {    
+    background-color: #02fb4419;
 }
 
 .singleAdImage {
 }
 
 .singleAdData {
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 20px;
 }
 
 .singleAdDataTop {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    max-height: 120px;
 }
 
 .header {
@@ -45,8 +52,11 @@
 
 .description {
     color: #777777;
+    overflow: hidden;
 }
 
 .singleAdDataBottom {
-    display: flex;
+    display: flex;    
+    justify-content: space-between;
+    font-size: 15px;
 }
