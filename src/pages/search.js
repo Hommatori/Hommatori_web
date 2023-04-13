@@ -1,13 +1,15 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/search.module.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import List from '../components/ad_list_types/list.js'
 import Card from '../components/ad_list_types/card.js'
 import list_svg from '../../public/ad_list.svg'
 import card_svg from '../../public/ad_cards.svg'
 import Modal from '../components/modal.js'
 import ResultNavigation from '../components/page-nav-btns.js'
+import regions from '../json/regions.json'
 
 export async function getServerSideProps(context) {
     const maxResultsToDisplay = 10 // amount of search results returned by the server at a time
@@ -17,7 +19,7 @@ export async function getServerSideProps(context) {
     const query = context.query.q
     const order = context.query.ord
     let page = 1
-    if(context.query.p != undefined){
+    if (context.query.p != undefined){
         page = context.query.p
     }
     let dbResponse = []
@@ -39,15 +41,35 @@ export async function getServerSideProps(context) {
             errorMsg = true
         }        
    // } ---> THIS IS PART OF THE UPPER COMMENTARY
-    return { props: { type, page, dbResponse, errorMsg, maxResultsToDisplay } }
+    return { props: { query, region, type, page, dbResponse, errorMsg, maxResultsToDisplay } }
   }
 
 // this is the search results page that user sees after performing a search. It receives page language translations as props
-export default function Search({ translations, type, page, dbResponse, errorMsg, maxResultsToDisplay }) {
+export default function Search({ query, region, translations, type, page, dbResponse, errorMsg, maxResultsToDisplay }) {
 
     const [listStyle, setListStyle] = useState('list') // how should results be displayed: as a list or as cards
     const [fetchError, setFetchError] = useState(errorMsg) // boolean value for wether to show error message or not
     const errorModalMessage = translations.search.dataFetchErrorMessage // connection error message stored in json
+    const router = useRouter()
+
+    useEffect(()=> {
+        document.getElementById('input').value = query.length != 0 ? query : null
+    }, [])
+
+    // Submit() collects search parameters and enters the search page with URL query params
+    function Submit() {
+        let input = document.getElementById('input').value
+        let region = document.getElementById('region_select').value
+        let ad_type = 'all'
+        if (document.getElementById('ad_type_joboffer').checked && document.getElementById('ad_type_jobseeker').checked) {
+            ad_type = 'all'
+        } else if (document.getElementById('ad_type_joboffer').checked){
+            ad_type = 'joboffer'
+        } else  if (document.getElementById('ad_type_jobseeker').checked){
+            ad_type = 'jobseeker'
+        }
+        router.push('/search' + '?type=' + ad_type + '&reg='+ region + '&q='+ input + '&p=1')     
+    }
 
     return (
         <>
@@ -67,7 +89,38 @@ export default function Search({ translations, type, page, dbResponse, errorMsg,
             </Head>
 
             <main className={styles.main}>
-                <div className={styles.newSearchContainer}>search box</div>
+                <div className={styles.searchWrapper}>
+                    <div className={styles.selections_container_top}>
+                        <div className={styles.searchbox_input}>
+                            <input
+                                className={styles.searchbox_input_field}
+                                id='input'
+                                type="text"
+                                placeholder={translations.homepage.work_awaits_searchbox}                                
+                                autoComplete="off"
+                            />
+                            <p onClick={() => Submit()} className={styles.searchbox_input_submit_btn}>{translations.homepage.get_started}</p>
+                        </div>                    
+                        <select className={styles.region_select} id='region_select'>
+                            <option value={'all'}>{translations.homepage.region_entire_finland}</option>
+                            {
+                                Object.keys(regions).map((item, index) => {
+                                    return <option key={index} value={item} selected={region == item ? "selected" : null}>{item}</option>
+                                })  
+                            }
+                        </select>                       
+                    </div>
+                    <div className={styles.selections_container_bottom}>
+                            <label className={styles.checkboxContainer}>{translations.homepage.ad_type_offers}
+                                <input type="checkbox" id="ad_type_joboffer" defaultChecked={type == 'all' || type == 'joboffer'}/>
+                                <span className={styles.checkmark}></span>
+                            </label>
+                            <label className={styles.checkboxContainer}>{translations.homepage.ad_type_seekers}
+                                <input type="checkbox" id="ad_type_jobseeker" defaultChecked={type == 'all' || type == 'jobseeker'}/>
+                                <span className={styles.checkmark}></span>
+                            </label>
+                        </div>
+                </div>
                 <div className={styles.filters}>
                     <div className={styles.filter_selectWrapper}>
                         <select className={styles.filter_select} id='filter_select'>
@@ -129,6 +182,7 @@ export default function Search({ translations, type, page, dbResponse, errorMsg,
                             total_rows={dbResponse.total_rows}
                             maxResultsToDisplay={maxResultsToDisplay}
                             page={parseInt(page)}
+                            translations={translations.search}
                         />
                         : <></>
                 }

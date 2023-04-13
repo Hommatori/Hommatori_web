@@ -7,7 +7,7 @@
     padding-right: 25px;
 }
 
-.newSearchContainer {
+.searchWrapper {
     margin-top: 60px;
     min-height: 80px;
     background-color: black;
@@ -17,10 +17,147 @@
     padding: 20px;
 }
 
+.selections_container_top {
+    display: flex;
+    gap: 50px;
+    margin-bottom: 30px;
+}
+
+.region_select {
+    width: 200px;
+    height: 45px;
+    border-radius: 0.4rem;
+    border-width: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: medium;
+    cursor: pointer;
+}
+
+.region_select:focus {
+    outline: none !important;
+}
+
+.searchbox_input {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.searchbox_input_field {
+    width: 100%;
+    height: 25px;
+    border-radius: 0.4rem;
+    border-width: 0;
+    padding: 10px;
+    padding-right: 80px;
+    font-size: medium;
+}
+
+.searchbox_input_field:focus {
+    outline: none !important;
+    border: 1px solid #25db55;
+    height: 1.43rem;
+}
+
+.searchbox_input_submit_btn { 
+    cursor: pointer;
+    padding-top: 8px;
+    padding-bottom: 4px;
+    padding-right: 15px;
+    padding-left: 15px;
+    position: absolute;
+    right: 3px;
+    background-color: #25db55;
+    border-radius: 0.3rem;
+    font-weight: bold;
+    color: black;
+    height: 22px;
+    width: 30px;
+    text-align: center;
+    border: 3px solid #25db55;
+}
+
+.searchbox_input_submit_btn:hover {
+    transition: all .2s ease;
+    color: black;
+    background-color: white;
+}
+
+.selections_container_bottom {
+    display: flex;
+    gap: 50px;
+}
+
+.checkboxContainer {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    font-size: large;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+  
+.checkboxContainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+  
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: white;
+}
+  
+.checkboxContainer:hover input ~ .checkmark {
+    background-color: #d9fee3;
+}
+
+.checkboxContainer input:checked ~ .checkmark {
+    background-color: #25db55;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkboxContainer input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkboxContainer .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
 .filters {
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
     background-color: #25db55;
     border-bottom-left-radius: 0.4rem;
     border-bottom-right-radius: 0.4rem;

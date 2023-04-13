@@ -38,7 +38,9 @@
       "no_results_msg": {
         "header": "Emme löytäneet yhtään hakuasi vastaavaa ilmoitusta.",
         "tips": "Voit yrittää uutta hakua eri alueelta tai uusilla hakusanoilla.."
-      }
+      },
+      "previous": "edellinen",
+      "next": "seuraava"
     }
   },  
   "en": {
@@ -80,7 +82,9 @@
       "no_results_msg": {
         "header": "We could not find any results that match your search criteria",
         "tips": "You can try to search from other regions or with different search words.."
-      }
+      },
+      "previous": "previous",
+      "next": "next"
     }
   }
 }

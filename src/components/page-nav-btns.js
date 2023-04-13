@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState, useRef } from 'react'
 
 // this is the single page nav link container of the search page. It displays previous / next result page links as well as links to individual result pages
-export default function ResultNavContainer({ total_rows, maxResultsToDisplay, page }) {
+export default function ResultNavContainer({ total_rows, maxResultsToDisplay, page, translations }) {
 
   const router = useRouter()
   const { query } = router
@@ -75,8 +75,8 @@ export default function ResultNavContainer({ total_rows, maxResultsToDisplay, pa
     <div className={styles.pageNavigator}>
       {
         page > 1 ?
-        <Link className={styles.navigationLink} href={previousPageHref}>edellinen</Link>
-        : <div className={styles.navigationLinkDisabled}>edellinen</div>
+        <Link className={styles.navigationLink} href={previousPageHref}>{translations.previous}</Link>
+        : <div className={styles.navigationLinkDisabled}>{translations.previous}</div>
       }
       {
         page > 1 ?
@@ -94,8 +94,8 @@ export default function ResultNavContainer({ total_rows, maxResultsToDisplay, pa
       </div>
       {
         page < Math.ceil(total_rows / maxResultsToDisplay) ?
-        <Link className={styles.navigationLink} href={nextPageHref}>seuraava</Link>
-        : <div className={styles.navigationLinkDisabled}>seuraava</div>
+        <Link className={styles.navigationLink} href={nextPageHref}>{translations.next}</Link>
+        : <div className={styles.navigationLinkDisabled}>{translations.next}</div>
       }
       {
         page < Math.ceil(total_rows / maxResultsToDisplay) ?
