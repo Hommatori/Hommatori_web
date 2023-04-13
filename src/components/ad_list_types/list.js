@@ -32,7 +32,7 @@ export default function List({ data, translations }) {
         <>{ data.map((item, index) => {
             return <div className={index == 0 ? styles.firstSingleAd : styles.singleAd} key={item.adid}>
                 {
-                    item.image != null ?
+                     item.image != null && item.image.length != 0 ?
                     <Image
                         width={250}
                         className={styles.singleAdImage}
