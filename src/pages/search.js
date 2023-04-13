@@ -7,7 +7,7 @@ import Card from '../components/ad_list_types/card.js'
 import list_svg from '../../public/ad_list.svg'
 import card_svg from '../../public/ad_cards.svg'
 import Modal from '../components/modal.js'
-import PageNavBtns from '../components/page-nav-btns.js'
+import ResultNavigation from '../components/page-nav-btns.js'
 
 export async function getServerSideProps(context) {
     const maxResultsToDisplay = 10 // amount of search results returned by the server at a time
@@ -39,14 +39,15 @@ export async function getServerSideProps(context) {
             errorMsg = true
         }        
    // } ---> THIS IS PART OF THE UPPER COMMENTARY
-    return { props: { type, region, page, dbResponse, errorMsg, maxResultsToDisplay } }
+    return { props: { type, page, dbResponse, errorMsg, maxResultsToDisplay } }
   }
 
 // this is the search results page that user sees after performing a search. It receives page language translations as props
-export default function Search({ translations, type, region, page, dbResponse, errorMsg, maxResultsToDisplay }) {
-    const [listStyle, setListStyle] = useState('list')
-    const [fetchError, setFetchError] = useState(errorMsg)
-    const errorModalMessage = translations.search.dataFetchErrorMessage 
+export default function Search({ translations, type, page, dbResponse, errorMsg, maxResultsToDisplay }) {
+
+    const [listStyle, setListStyle] = useState('list') // how should results be displayed: as a list or as cards
+    const [fetchError, setFetchError] = useState(errorMsg) // boolean value for wether to show error message or not
+    const errorModalMessage = translations.search.dataFetchErrorMessage // connection error message stored in json
 
     return (
         <>
@@ -124,7 +125,7 @@ export default function Search({ translations, type, region, page, dbResponse, e
                 </div>
                 {
                     Math.ceil(dbResponse.total_rows / maxResultsToDisplay) > 1 ?
-                        <PageNavBtns
+                        <ResultNavigation
                             total_rows={dbResponse.total_rows}
                             maxResultsToDisplay={maxResultsToDisplay}
                             page={parseInt(page)}
