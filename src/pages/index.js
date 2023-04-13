@@ -14,11 +14,11 @@ export default function Home({ translations }) {
         let input = document.getElementById('input').value
         let region = document.getElementById('region_select').value
         let ad_type = document.getElementById('ad_type_select').value
-        router.push('/search' + '?type=' + ad_type + '&reg='+ region + '&q='+ input)     
+        router.push('/search' + '?type=' + ad_type + '&reg='+ region + '&q='+ input + '&p=1')     
     }
 
     return (
-        <>
+        <div>
             <Head>
             <title>{translations.homepage.metadata.title}</title>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -89,6 +89,6 @@ export default function Home({ translations }) {
                 </div>
 
             </main>
-        </>
+        </div>
     )
 }

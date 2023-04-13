@@ -1,72 +1,52 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import Link from 'next/link'
 import styles from '../styles/search.module.css'
-import { useRouter } from 'next/router'
 import { useState } from 'react'
 import List from '../components/ad_list_types/list.js'
 import Card from '../components/ad_list_types/card.js'
 import list_svg from '../../public/ad_list.svg'
 import card_svg from '../../public/ad_cards.svg'
 import Modal from '../components/modal.js'
+import PageNavBtns from '../components/page-nav-btns.js'
 
 export async function getServerSideProps(context) {
+    const maxResultsToDisplay = 10 // amount of search results returned by the server at a time
     let errorMsg = false
     const type = context.query.type
     const region = context.query.reg
     const query = context.query.q
     const order = context.query.ord
-    let offset = 0
-    if(context.query.o != undefined){
-        offset = context.query.o
+    let page = 1
+    if(context.query.p != undefined){
+        page = context.query.p
     }
     let dbResponse = []
     
     // NOT SURE IF WE KEEP THIS OR NOT. SERVER WOULD NEED ROUTE MODIFICATION SINCE THIS ROUTE RETURNS A TABLE..
     // BUT THE OTHER ROUTE RETURN A TABLE OF OBJECTS. OBVIOUSLY THESE WOULD NEED TO BE HANDLED DIFFERENTLY
-    /*if(type === 'all' && region === 'all' && query === '' && order == undefined && offset == 0){
+    /*if(type === 'all' && region === 'all' && query === '' && order == undefined && page == 0){
         try {
             const dbQuery = await fetch(`http://localhost:8080/ad/`)
             dbResponse = await dbQuery.json()
         } catch(e) {
             errorMsg = true
-        }        
+        }        1page
     } else {*/
         try {
-            const dbQuery = await fetch(`http://localhost:8080/ad/withparams/get?type=${type}&region=${region}&order=${order}&offset=${offset}&query=${query}`)
+            const dbQuery = await fetch(`http://localhost:8080/ad/withparams/get?type=${type}&region=${region}&order=${order}&page=${page}&query=${query}`)
             dbResponse = await dbQuery.json()
         } catch(e) {
             errorMsg = true
         }        
    // } ---> THIS IS PART OF THE UPPER COMMENTARY
-    return { props: { type, region, offset, dbResponse, errorMsg } }
+    return { props: { type, region, page, dbResponse, errorMsg, maxResultsToDisplay } }
   }
 
 // this is the search results page that user sees after performing a search. It receives page language translations as props
-export default function Search({ translations, type, region, offset, dbResponse, errorMsg }) {
+export default function Search({ translations, type, region, page, dbResponse, errorMsg, maxResultsToDisplay }) {
     const [listStyle, setListStyle] = useState('list')
     const [fetchError, setFetchError] = useState(errorMsg)
-    const errorModalMessage = translations.search.dataFetchErrorMessage
-
-    const router = useRouter()
-    // Get the current query parameters
-    const { query } = router
-
-    // Modify the query parameter as needed
-    const previousPageOffset = parseInt(offset) - 1
-    const nextPageOffset = parseInt(offset) + 1
-    const previousPageQuery = { ...query, o: previousPageOffset }
-    const nextPageQuery = { ...query, o: nextPageOffset }
-
-    // Form the href for the link
-    const previousPageHref = {
-        pathname: router.pathname,
-        query: previousPageQuery,
-    }
-    const nextPageHref = {
-        pathname: router.pathname,
-        query: nextPageQuery,
-    }
+    const errorModalMessage = translations.search.dataFetchErrorMessage 
 
     return (
         <>
@@ -104,21 +84,11 @@ export default function Search({ translations, type, region, offset, dbResponse,
                             </option>
                         </select>
                     </div>
-                    {
-                        offset >= 1 ?
-                        <Link className={styles.link} href={previousPageHref}>edellinen sivu</Link>
-                        : <></>
-                    }
                     <p className={styles.filter_pageNumber}>{translations.search.page}
-                        <span> { dbResponse.data != undefined ? offset == 0 ? 1 : parseInt(offset) + 1 : 0}
+                        <span> { dbResponse.data != undefined ? parseInt(page) == 0 ? 1 : parseInt(page) : 0}
                         <span> / </span>
-                        { dbResponse.data != undefined ? Math.ceil(dbResponse.total_rows / 10) : 0 }</span>
-                    </p>
-                    {
-                        offset < Math.ceil(dbResponse.total_rows / 10) - 1 ?
-                        <Link className={styles.link} href={nextPageHref}>seuraava sivu</Link>
-                        : <></>
-                    }                    
+                        { dbResponse.data != undefined ? Math.ceil(dbResponse.total_rows / maxResultsToDisplay) : 0 }</span>
+                    </p>                
                     <div className={styles.filter_display_wrapper}>
                         <div className={styles.filter_displayBtnLeft} onClick={() => setListStyle('list')} >
                             <Image
@@ -151,7 +121,16 @@ export default function Search({ translations, type, region, offset, dbResponse,
                             <p className={styles.noResultsTips}>{translations.search.no_results_msg.tips}</p>
                         </div>
                     }
-                </div>                
+                </div>
+                {
+                    Math.ceil(dbResponse.total_rows / maxResultsToDisplay) > 1 ?
+                        <PageNavBtns
+                            total_rows={dbResponse.total_rows}
+                            maxResultsToDisplay={maxResultsToDisplay}
+                            page={parseInt(page)}
+                        />
+                        : <></>
+                }
                 { /* informative modal will be shown if data fetch from server fails */
                     fetchError ? <Modal message={errorModalMessage} closeModal={() => setFetchError(false)} /> : <></> 
                 }

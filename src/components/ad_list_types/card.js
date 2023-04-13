@@ -31,7 +31,7 @@ export default function Card({ data, translations }) {
             { data.map(item => {
                 return <div className={styles.singleAd} key={item.adid}>
                     {
-                        item.image != null ?
+                        item.image != null && item.image.length != 0 ?
                         <Image
                             height={item.image != null ? 180 : 0}
                             className={styles.singleAdImage}
