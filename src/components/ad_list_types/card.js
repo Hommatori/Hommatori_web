@@ -39,7 +39,8 @@ export default function Card({ data, translations }) {
                         <Image
                             height={item.image != null ? 180 : 0}
                             className={styles.singleAdImage}
-                            src={item.image ? item.image : ""}
+                            //src={item.image ? item.image : ""}
+                            src={""}
                             alt="hommatori"
                             as="image"
                         />

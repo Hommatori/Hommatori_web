@@ -25,6 +25,14 @@ const nextConfig = {
         permanent: true
       }
     ]
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**raw.githubusercontent.com**',
+      },
+    ],
   }
 }
 
