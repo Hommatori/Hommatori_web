@@ -10,7 +10,7 @@ export default function Account({ translations }) {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta property="og:site_name" content="Hommatori.fi" />
                 <meta property="og:title" content={""} />
-                <meta property="og:description" content={""}></meta>
+                <meta property="og:description" content={""} />
                 <meta property="og:type" content="website" />
                 <meta property="og:url" content="http://www.hommatori.fi" />
                 <meta name="keywords" content={""} />
