@@ -24,6 +24,9 @@ export async function getServerSideProps(context) {
 export default function Ad({ translations, dbResponse, errorMsg }) {
     const [fetchError, setFetchError] = useState(errorMsg) // boolean value for wether to show error message or not
     const errorModalMessage = translations.search.dataFetchErrorMessage // connection error message stored in json
+    const [imageToDisplay, setImageToDisplay] = useState(dbResponse.image ? Array.isArray(JSON.parse(dbResponse.image)) ?
+    JSON.parse(dbResponse.image)[0] : JSON.parse(dbResponse.image) : null)
+
     return (
         <>
             <Head>
@@ -49,14 +52,36 @@ export default function Ad({ translations, dbResponse, errorMsg }) {
                     <Link className={styles.pageLocationLink} href="">{dbResponse.type} </Link>
                     {dbResponse.header.substring(0, 30)}{dbResponse.header.length < 30 ? '' : '..'}
                 </div>
-                <div className={styles.adWrapper}>
-                    <div className={styles.adData}>
-
-                    </div>
-                    <Image className={styles.imageContainer}/>
-                </div>
                 <h1 className={styles.header}>{dbResponse.header}</h1>
-                <p className={styles.description}>{dbResponse.description}</p>
+                <div className={styles.adWrapper}>
+                    { dbResponse.image ?
+                        <div className={styles.imagesWrapper}>
+                            <div className={styles.imageWrapper}>
+                                <Image
+                                    src={imageToDisplay}
+                                    fill
+                                    style={{ objectFit: 'contain' }}                        
+                                />
+                            </div> {
+                                Array.isArray(JSON.parse(dbResponse.image)) ?
+                                <div className={styles.imageSelector}> {
+                                    JSON.parse(dbResponse.image).map((itm, index) => {
+                                        return <Image
+                                        key={index}
+                                        className={itm == imageToDisplay ? styles.selectorImageSelected : styles.selectorImage}
+                                        src={itm}
+                                        height={45}
+                                        width={45}
+                                        onClick={() => setImageToDisplay(itm)}
+                                    />
+                                    })
+                                } </div>
+                                : <></>
+                        } </div> 
+                        : <></>
+                    }
+                    <p className={styles.description}>{dbResponse.description}</p>
+                </div>              
             </main>
             { /* informative modal will be shown if data fetch from server fails */
                 fetchError ? <Modal message={errorModalMessage} closeModal={() => setFetchError(false)} /> : <></> 

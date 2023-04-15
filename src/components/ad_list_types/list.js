@@ -38,7 +38,7 @@ export default function List({ data, translations }) {
                     <Image
                         width={250}
                         className={styles.singleAdImage}
-                        src={item.image ? item.image : ""}
+                        src={item.image ? Array.isArray(JSON.parse(item.image)) ? JSON.parse(item.image)[0] : JSON.parse(item.image) : ""}
                         height={37}
                         alt="hommatori"
                         as="image"
