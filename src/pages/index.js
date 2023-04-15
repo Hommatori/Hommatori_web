@@ -14,7 +14,7 @@ export default function Home({ translations }) {
         let input = document.getElementById('input').value
         let region = document.getElementById('region_select').value
         let ad_type = document.getElementById('ad_type_select').value
-        router.push('/search' + '?type=' + ad_type + '&reg='+ region + '&q='+ input + '&p=1')     
+        router.push(`/search?type=${ad_type}&reg=${region}&q=${input}&p=1`)    
     }
 
     return (
@@ -24,7 +24,7 @@ export default function Home({ translations }) {
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <meta property="og:site_name" content="Hommatori.fi" />
             <meta property="og:title" content={translations.homepage.metadata.title} />
-            <meta property="og:description" content={translations.homepage.metadata.description}></meta>
+            <meta property="og:description" content={translations.homepage.metadata.description} />
             <meta property="og:type" content="website" />
             <meta property="og:url" content="http://www.hommatori.fi" />
             <meta name="keywords" content={translations.homepage.metadata.keywords} />

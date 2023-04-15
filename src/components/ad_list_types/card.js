@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../../styles/ad-card.module.css'
+import Link from 'next/link'
 
 export default function Card({ data, translations }) {
 
@@ -29,7 +30,10 @@ export default function Card({ data, translations }) {
     return(
         <div className={styles.cardWrapper}>
             { data.map(item => {
-                return <div className={styles.singleAd} key={item.adid}>
+                return <Link
+                            className={styles.singleAd}
+                            key={item.adid}
+                            href={`/ad/${item.adid}/${item.header}`}>
                     {
                         item.image != null && item.image.length != 0 ?
                         <Image
@@ -43,15 +47,15 @@ export default function Card({ data, translations }) {
                     }                    
                     <div className={styles.singleAdData}>
                         <div className={styles.singleAdDataTop}>
-                            <div className={styles.header}>{item.header}</div>                            
-                            <div className={styles.description}>{item.description}</div>
+                            <h3 className={styles.header}>{item.header}</h3>                            
+                            <p className={styles.description}>{item.description}</p>
                         </div>
                         <div className={styles.singleAdDataBottom}>
                             <div className={styles.price}>{item.price} €</div>
                             { getDate(item.date) }
                         </div>
                     </div>
-                </div>
+                </Link>
             })}
         </div>
     )
