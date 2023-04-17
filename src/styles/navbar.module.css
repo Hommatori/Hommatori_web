@@ -50,6 +50,7 @@
     border-color: white;
     border-radius: 0.4rem;
     border-width: 3px;
+    box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 3px
 }
 
 .messages_btn:hover {
@@ -72,6 +73,7 @@
     border-radius: 0.4rem;
     border-width: 3px;
     text-decoration: none;
+    box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 3px
 }
 
 .log_in_btn:hover {
@@ -99,4 +101,8 @@
     color: black;
     font-weight: bold;
     text-decoration: none;
+}
+
+@media screen and (max-width: 500px) {
+
 }

@@ -180,6 +180,7 @@
     padding-right: 15px;
     font-size: medium;
     cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 3px;
 }
 
 .filter_pageNumber {
@@ -211,6 +212,7 @@
     justify-content: center;
     margin-right: 3px;
     cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 3px;
 }
 
 .filter_displayBtnLeft:hover {
@@ -229,6 +231,7 @@
     justify-content: center;
     margin-left: 3px;
     cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 3px;
 }
 
 .filter_displayBtnRight:hover {
