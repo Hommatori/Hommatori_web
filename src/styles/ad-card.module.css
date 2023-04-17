@@ -20,6 +20,7 @@
     padding-right: 20px;
     padding-bottom: 20px;
     cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 3px;
 }
 
 .singleAd:hover {    

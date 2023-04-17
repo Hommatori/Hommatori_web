@@ -12,6 +12,7 @@ import ResultNavigation from '../components/page-nav-btns.js'
 import regions from '../json/regions.json'
 
 export async function getServerSideProps(context) {
+    var address = process.env.ADDRESS || 'http://localhost:8080'
     const maxResultsToDisplay = 10 // amount of search results returned by the server at a time
     let errorMsg = false
     const type = context.query.type == null ? null : context.query.type
@@ -32,7 +33,7 @@ export async function getServerSideProps(context) {
         }        1page
     } else {*/
     try {
-        const dbQuery = await fetch(`http://localhost:8080/ad/withparams/get?type=${type}&region=${region}&order=${order}&page=${page}&query=${query}`)
+        const dbQuery = await fetch(`${address}/ad/withparams/get?type=${type}&region=${region}&order=${order}&page=${page}&query=${query}`)
         dbResponse = await dbQuery.json()
     } catch(e) {
         errorMsg = true

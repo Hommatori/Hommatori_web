@@ -26,6 +26,21 @@ export default function List({ data, translations }) {
 
         return `${formattedDate} ${formattedTime}`
     }
+
+    function getSingleImage(image) {
+        let imageToDisplay = null
+        if (image) {
+            try {
+                const imageArray = JSON.parse(image)
+                if (Array.isArray(imageArray)) {               
+                imageToDisplay = imageArray[0]
+                }
+            } catch {
+                imageToDisplay = image.replace(/['"\r\n]+/g, '')
+            }
+        }
+        return imageToDisplay
+    }
     
     return(
         <>{ data.map((item, index) => {
@@ -34,11 +49,11 @@ export default function List({ data, translations }) {
                         key={item.adid}
                         href={`/ad/${item.adid}/${item.header}`}>
                 {
-                     item.image != null && item.image.length != 0 ?
+                    item.image != null && item.image.length != 0 ?
                     <Image
                         width={250}
                         className={styles.singleAdImage}
-                        src={item.image ? Array.isArray(JSON.parse(item.image)) ? JSON.parse(item.image)[0] : JSON.parse(item.image) : ""}
+                        src={getSingleImage(item.image)}
                         height={37}
                         alt="hommatori"
                         as="image"

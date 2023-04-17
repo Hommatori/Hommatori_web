@@ -17,6 +17,7 @@
     border-radius: 0.4rem;
     cursor: pointer;
     width: 170px;
+    box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 3px
 }
 
 .navigationLink:hover {    
@@ -37,6 +38,7 @@
     height: 40px;
     background-color: rgb(251, 251, 251);
     border-radius: 0.4rem;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 3px;
 }
 
 .navigationLinkMobile {
@@ -68,6 +70,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 3px
 }
 
 .pageNavigationItem:hover {
@@ -90,6 +93,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 3px
 }
 
 @media screen and (max-width: 500px) {

@@ -32,10 +32,65 @@
 }
 
 .adWrapper {
+    margin-top: 40px;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     gap: 50px;
-    justify-content: space-between !important;
+    justify-content: space-between;
+}
+
+.adWrapperLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.adWrapperRight {
+    position: sticky;
+    top: 200px;
+    width: 300px;    
+}
+
+.adWrapperRight p {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+}
+
+.adWrapperRightTop {
+    border-top-left-radius: 0.4rem;
+    border-top-right-radius: 0.4rem;
+    padding: 10px;    
+    background-color: #25db55;
+    font-weight: bolder;
+    box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 3px;
+    text-align: center;
+}
+
+.adWrapperRightBottom {    
+    border-bottom-left-radius: 0.4rem;
+    border-bottom-right-radius: 0.4rem;
+    padding: 15px;    
+    background-color: rgb(251, 251, 251);
+    box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 3px;
+    height: 135px;
+}
+
+.sendMessageBtn {
+    transition: 0.2s all;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 100%;
+    background-color: #25db55;
+    border-radius: 0.3rem;;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 3px;
+}
+
+.sendMessageBtn:hover {
+    background-color: black;
+    color: white;
 }
 
 .imagesWrapper {
@@ -45,58 +100,109 @@
 }
 
 .header {
-    margin-top: 30px !important;
+    margin-top: 30px;
     font-weight: bold;
     font-size: x-large;
-    margin-block-end: 0em !important;
+    margin-block-end: 0em;
 }
 
-.imageWrapper { 
+.imageWrapper {
     height: 300px;
     position: relative;
-    background-color: rgb(247, 247, 247);
+    background-color: rgb(251, 251, 251);
 }
 
 .imageSelector {
-    background-color: rgb(247, 247, 247);
+    background-color: rgb(251, 251, 251);
     display: flex;
-    gap: 5px;
+    justify-content: center;
+    gap: 10px;
+    padding-top: 10px;
 }
 
-.selectorImage {
+.selectableImage {
     cursor: pointer;
 }
 
-.selectorImageSelected {
+.selectableImageSelected {
     cursor: pointer;
     filter: brightness(60%);
 }
 
-@media screen and (max-width: 500px) {
-    .main {
-        padding-top: 55px;
-        max-width: auto !important;
-        margin-left: auto; 
-        margin-right: auto;
-        padding-left: 10px;
-        padding-right: 10px;
+.locationTag {
+    display: block;
+    margin-top: -15px;
+}
+
+.descriptionHeader {
+    display: block;
+    margin-top: 40px;
+    border-bottom: 2px solid #25db55;
+    padding-bottom: 5px;;
+}
+
+@media screen and (max-width: 1000px) and (min-width: 600px){
+    .adWrapper {
+        flex-direction: column;
     }
     
+    .adWrapperRight {
+        width: 300px;
+        background-color: aqua;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .main {
+        padding-top: 55px;
+        max-width: auto;
+        margin-left: auto; 
+        margin-right: auto;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .adBanner {
+        padding: 20px;
+        height: 20px;
+    }
+    
+    .adWrapper {
+        flex-direction: column;
+    }
+
+    .adWrapperLeft {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .adWrapperRight {
+        align-self: center;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
     .pageLocationNavigation {
         font-size: small;
+    }
+
+    .pageLocationNavigation {
+        width: 100vw;
+    }
+
+    .header {
+        font-size: large;
+        padding-left: 15px;
+        padding-right: 15px;
     }    
 
-    .adWrapper {
-        margin-top: 30px;
-        display: flex;
-        flex-direction: column;
-        gap: 50px;
+    .imagesWrapper {
+        width: 100%;
     }
 
     .imageWrapper {
-        background-color: aqua;
         width: 100%;
-        min-height: 300px;
-        position: relative;
+        height: 180px;
     }
+    
 }
