@@ -41,6 +41,22 @@
       },
       "previous": "edellinen",
       "next": "seuraava"
+    },
+    "error": {
+      "metadata": {
+        "title": "Sivua ei löydy"
+      },
+      "header": "Valitettavasti emme löytäneet etsimääsi sivua..",
+      "continue": "Palaa takaisin etusivulle",
+      "here": "tästä"
+    },
+    "ad": {
+      "mainpage": "Etusivu",
+      "joboffers": "Työtarjoukset",
+      "jobseekers": "Työnhakijat",
+      "publisher": "Julkaisija",
+      "description": "Kuvaus",
+      "send_message": "Lähetä viesti"
     }
   },  
   "en": {
@@ -85,6 +101,22 @@
       },
       "previous": "previous",
       "next": "next"
+    },
+    "error": {
+      "metadata": {
+        "title": "Page not found"
+      },
+      "header": "Unfortunately we couldn't find the page you were looking for..",
+      "continue": "Return to the main page from",
+      "here": "here"
+    },
+    "ad": {
+      "mainpage": "Main page",
+      "joboffers": "Job offers",
+      "jobseekers": "Job seekers",
+      "publisher": "Published by",
+      "description": "Description",
+      "send_message": "Send message"
     }
   }
 }

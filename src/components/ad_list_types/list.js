@@ -50,14 +50,15 @@ export default function List({ data, translations }) {
                         href={`/ad/${item.adid}/${item.header}`}>
                 {
                     item.image != null && item.image.length != 0 ?
-                    <Image
-                        width={250}
-                        className={styles.singleAdImage}
-                        src={getSingleImage(item.image)}
-                        height={37}
-                        alt="hommatori"
-                        as="image"
-                    /> : <></>
+                    <div className={styles.singleAdImageWrapper}>
+                        <Image
+                            src={getSingleImage(item.image)}
+                            alt="hommatori"
+                            as="image"
+                            fill
+                            style={{ objectFit: 'fill' }}  
+                        /> 
+                    </div> : <></>
                 }
                 
                 <div className={styles.singleAdData}>

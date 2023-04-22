@@ -1,0 +1,19 @@
+.main {
+    padding-top: 55px;
+    max-width: 1200px;
+    margin-left: auto; 
+    margin-right: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.not_found_message {
+    margin-top: 100px;
+}
+
+.not_found_message_link {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    color: #26a447;
+}

@@ -183,6 +183,10 @@
     box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 3px;
 }
 
+.filter_select:focus {
+    outline: none !important;
+}
+
 .filter_pageNumber {
     text-align: center;
     width: 33.33%;
@@ -201,46 +205,39 @@
 }
 
 .filter_displayBtnLeft {
+    position: relative;
     transition: all 0.1s;
-    height: 45px;
-    width: 48px;
+    height: 35px;
+    width: 35px;
     border-top-left-radius: 0.4rem;
     border-bottom-left-radius: 0.4rem;
-    background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 3px;
+    margin-right: 10px;
     cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 3px;
 }
 
 .filter_displayBtnLeft:hover {
-    background-color: rgb(223, 223, 223);
+    transform: scale(1.1);
 }
 
 .filter_displayBtnRight {
+    position: relative;
     transition: all 0.1s;
-    height: 45px;
-    width: 48px;
+    height: 35px;
+    width: 35px;
     border-top-right-radius: 0.4rem;
     border-bottom-right-radius: 0.4rem;
-    background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 3px;
+    margin-left: 10px;
     cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 3px;
 }
 
 .filter_displayBtnRight:hover {
-    background-color: rgb(223, 223, 223);
-}
-
-.verticalDivider {
-    border-left: 3px solid #25db55;
-    height: 45px;
+    transform: scale(1.1);
 }
 
 .adListContainer {
@@ -257,3 +254,137 @@
     text-align: center;
 }
 
+@media screen and (max-width: 600px){
+    .main {
+        padding-top: 55px;
+        max-width: auto;
+        margin-left: auto; 
+        margin-right: auto;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .searchWrapper {
+        margin-top: 40px;
+        padding: 8px;
+    }
+    
+    .selections_container_top {
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    
+    .region_select {
+        width: 160px;
+        height: 30px;
+        border-radius: 0.2rem;
+        padding-left: 5px;
+        padding-right: 5px;
+        font-size: x-small;
+    }
+    
+    .searchbox_input_field {
+        height: 14px;
+        border-radius: 0.2rem;
+        padding: 8px;
+        padding-right: 75px;
+        font-size: x-small;
+    }
+    
+    .searchbox_input_field:focus {
+        height: 0.78rem !important;
+    }
+    
+    .searchbox_input_submit_btn {
+        padding-top: 3px;
+        padding-bottom: 0px;
+        padding-right: 14px;
+        padding-left: 8px;
+        right: 0px;
+        border-bottom-left-radius: 0rem;
+        border-top-left-radius: 0rem;
+        border-top-right-radius: 0.2rem;
+        border-bottom-right-radius: 0.2rem;
+        height: 22px;
+        width: 20px;
+    }
+    .selections_container_bottom {
+        display: flex;
+        gap: 15px;
+    }
+    
+    .checkboxContainer {
+        padding-left: 27px;
+        font-size: smaller;
+    }
+      
+    .checkmark {
+        height: 17px;
+        width: 17px;
+    }
+    
+    .checkboxContainer .checkmark:after {
+        left: 5px;
+        top: 2px;
+        width: 4px;
+        height: 8px;
+    }
+    
+    .filters {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    
+    .filter_select {
+        width: 140px;
+        height: 30px;
+        border-radius: 0.2rem;
+        padding-left: 5px;
+        padding-right: 5px;
+        font-size: x-small;
+    }   
+
+    .filter_display_wrapper {
+        width: auto;
+    }
+    
+    .filter_displayBtnLeft {
+        transition: all 0.1s;
+        height: 25px;
+        width: 25px;
+        border-top-left-radius: 0.2rem;
+        border-bottom-left-radius: 0.2rem;
+        margin-right: 5px;
+    }
+
+    .filter_displayBtnRight {
+        transition: all 0.1s;
+        height: 25px;
+        width: 25px;
+        border-top-right-radius: 0.2rem;
+        border-bottom-right-radius: 0.2rem;
+        margin-left: 5px;
+    }
+    
+    .adListContainer {
+        margin-top: 10px;
+    }
+    
+    .noResultsHeader {
+        font-weight: bold;
+        font-size: smaller;
+    }
+    
+    .noResultsTips {
+        font-size: small;
+    }
+
+    .filter_pageNumber {
+        font-size: x-small;
+    }
+}

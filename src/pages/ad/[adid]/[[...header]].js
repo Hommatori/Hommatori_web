@@ -29,7 +29,7 @@ export async function getServerSideProps(context) {
     if(Object.keys(dbResponse).length === 0 || dbResponse.status == 500 || dbResponse.adid == undefined) {
         return {
             redirect: {
-                destination: '/hello',
+                destination: '/notfound',
                 permanent: false,
             }
         }
@@ -94,11 +94,11 @@ export default function Ad({ translations, dbResponse, dbPublisher, errorMsg }) 
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta property="og:site_name" content="Hommatori.fi" />
                 <meta property="og:title" content={dbResponse.header} />
-                <meta property="og:description" content={dbResponse.region + ' ' + dbResponse.description} />
+                <meta property="og:description" content={dbResponse.region+' '+dbResponse.municipality+' '+dbResponse.description} />
                 <meta property="og:type" content="website" />
                 <meta property="og:url" content="http://www.hommatori.fi" />
-                <meta name="keywords" content={dbResponse.description} />
-                <meta name="description" content={dbResponse.description} />
+                <meta name="keywords" content={dbResponse.region+' '+dbResponse.municipality+' '+dbResponse.description} />
+                <meta name="description" content={dbResponse.region+' '+dbResponse.municipality+' '+dbResponse.description} />
                 <link rel="canonical" href="http://www.hommatori.fi/" />
                 <link rel="shortcut icon" href="hommatori_favicon.ico" />
                 <link rel="icon" href="hommatori_favicon.ico" />
@@ -106,11 +106,16 @@ export default function Ad({ translations, dbResponse, dbPublisher, errorMsg }) 
 
             <main className={styles.main}>
                 <div className={styles.adBanner}></div>
-                <div className={styles.pageLocationNavigation}>
-                    <Link className={styles.pageLocationLink} href="/">etusivu </Link>
-                    <Link className={styles.pageLocationLink} href="">{dbResponse.region} </Link>
-                    <Link className={styles.pageLocationLink} href="">{dbResponse.type} </Link>
-                    {dbResponse.header.substring(0, 30)}{dbResponse.header.length < 30 ? '' : '..'}
+                <div className={styles.breadcrumbs}>
+                    <Link className={styles.breadcrumbLink1} href="/">{translations.ad.mainpage}</Link>
+                    <span className={styles.divider}> /</span>
+                    <Link className={styles.breadcrumbLink2} href={`/search?reg=${dbResponse.region}`}>{dbResponse.region}</Link>
+                    <span className={styles.divider}> /</span>
+                    <Link className={styles.breadcrumbLink3} href={`/search?type=${dbResponse.type}&reg=${dbResponse.region}`}>
+                        {dbResponse.type == 'joboffer' ? translations.ad.joboffers : dbResponse.type == 'jobseeker' ? translations.ad.jobseekers : ''}
+                    </Link>
+                    <span className={styles.divider}> /</span>
+                    <div className={styles.breadcrumbItem}>{dbResponse.header.substring(0, 30)} {dbResponse.header.length < 30 ? '' : '..'}</div>
                 </div>
                 <h1 className={styles.header}>{dbResponse.header}</h1>
                 <div className={styles.adWrapper}>
@@ -146,19 +151,19 @@ export default function Ad({ translations, dbResponse, dbPublisher, errorMsg }) 
                         }
                         <div>
                             <p className={styles.locationTag}>{dbResponse.location ? dbResponse.location : null} {dbResponse.municipality}, {dbResponse.region}</p>
-                            <b className={styles.descriptionHeader}>Kuvaus</b>
+                            <b className={styles.descriptionHeader}>{translations.ad.description}</b>
                             <p className={styles.description}>{dbResponse.description}</p>
                         </div>
                     </div>
                     <div className={styles.adWrapperRight}>
                         <div className={styles.adWrapperRightTop}>
-                            <p>Julkaisija</p>
+                            <p>{translations.ad.publisher}</p>
                         </div>
                         <div className={styles.adWrapperRightBottom}>
                             <b>{dbPublisher.username}</b><br/><br/>
                             <p>{dbResponse.location ? dbResponse.location +  ', ' : null}{dbResponse.municipality}</p>
                             <p>{dbResponse.region}</p><br/>
-                            <div className={styles.sendMessageBtn}>send message</div>
+                            <div className={styles.sendMessageBtn}>{translations.ad.send_message}</div>
                         </div>
                     </div>
                 </div>              

@@ -4,6 +4,7 @@ import background_img from '../../public/homepage_background.jpg'
 import regions from '../json/regions'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 // this is the root/main page */* that user enters. It receives page language translations as props
 export default function Home({ translations }) {
@@ -75,10 +76,10 @@ export default function Home({ translations }) {
                         <p className={styles.publish_ad_title}>{translations.homepage.searchbox_publish}</p>
                         <div className={styles.publish_ad_options}>
                             <div className={styles.publish_ad_option}>
-                                <p>{translations.homepage.publish_as_jobseeker}</p>
+                                <Link href="/form" className={styles.publishLink}>{translations.homepage.publish_as_jobseeker}</Link>
                             </div>
                             <div className={styles.publish_ad_option}>
-                                <p>{translations.homepage.publish_as_employer}</p>
+                                <Link href="/form" className={styles.publishLink}>{translations.homepage.publish_as_employer}</Link>
                             </div>
                         </div>
                     </div>
