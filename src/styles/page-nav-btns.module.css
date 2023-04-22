@@ -96,7 +96,7 @@
     box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 3px
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
     .pageNavigator {
         gap: 10px;
     }
@@ -115,12 +115,12 @@
         font-weight: bolder;
         text-decoration: none;
         color: black;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        padding-left: 15px;
-        padding-right: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 11px;
+        padding-right: 11px;
         background-color: #25db55;
-        border-radius: 0.4rem;
+        border-radius: 0.2rem;
         cursor: pointer;
     }
 
@@ -136,11 +136,25 @@
         pointer-events: none;
         text-decoration: none;
         color: lightgray;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        padding-left: 15px;
-        padding-right: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 11px;
+        padding-right: 11px;
         background-color: rgb(251, 251, 251);
-        border-radius: 0.4rem;
-    }    
+        border-radius: 0.2rem;
+    }
+    
+    .pageNavigationItem {
+        width: 32px;
+        height: 32px;
+        border-radius: 0.2rem;
+        font-size: medium;
+    }
+    
+    .pageNavigationItemActive {
+        width: 24px;
+        height: 24px;
+        border-radius: 0.2rem;
+        font-size: medium;
+    }
 }

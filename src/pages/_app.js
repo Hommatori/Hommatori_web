@@ -2,6 +2,7 @@ import styles from '../styles/global_styles.css'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
 import translations from '../json/translations'
+import { useEffect, useState } from 'react'
 
 // the _app.js file is not a page itself, but the root of all components which can serve props to the current page (any page will include this component)
 export default function App({ Component, pageProps, router }) {
@@ -10,7 +11,7 @@ export default function App({ Component, pageProps, router }) {
   return(    
     <div className={styles._app}> 
       { router.pathname != '/account' && <Navbar locale={locale} translations={translations[locale].navbar} /> }
-      <Component {...pageProps } translations={translations[locale]} />
+      <Component {...pageProps } translations={translations[locale]}/>
       { router.pathname != '/account' && <Footer translations={translations[locale].footer} /> }      
     </div>
   )

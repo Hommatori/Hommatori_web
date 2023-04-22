@@ -23,10 +23,16 @@
     padding-right: 25px;
 }
 
-.logo {
-    cursor: pointer;
+.logoContainer {
+    position: relative;
+    height: 40px;
+    width: 230px;
     margin-left: -4px;
     margin-top: 5px;
+}
+
+.logo {
+    cursor: pointer;    
 }
 
 .navbar_navigation_icons {
@@ -50,6 +56,7 @@
     border-color: white;
     border-radius: 0.4rem;
     border-width: 3px;
+    text-decoration: none;
     box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 3px
 }
 
@@ -57,6 +64,10 @@
     transition: all .2s ease;
     color: black;
     background-color: white;
+}
+
+.messages_btn_mobile {
+    display: none;
 }
 
 .log_in_btn {
@@ -82,6 +93,10 @@
     background-color: transparent;
 }
 
+.log_in_btn_mobile {
+    display: none;
+}
+
 .language_selector {
     display: flex;
     gap: 15px;
@@ -103,6 +118,91 @@
     text-decoration: none;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 800px) and (min-width: 600px) {
+    .logoContainer {
+        position: relative;
+        height: 37px;
+        width: 200px;
+        margin-left: -4px;
+        margin-top: 5px;
+    }
+    
+    .navbar_navigation_icons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .messages_btn {
+        font-size: small;
+    }
+    
+    .log_in_btn {
+        font-size: small;
+    }
 
+    .language_selector {
+        font-size: smaller;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .navbar_wrapper {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .logoContainer {
+        position: relative;
+        height: 25px;
+        width: 140px;
+        margin-left: -4px;
+        margin-top: 5px;
+    }
+
+    .navbar_navigation_icons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .messages_btn {
+        display: none;
+    }
+    
+    .log_in_btn {
+        display: none;
+    }  
+
+    .messages_btn_mobile {
+        height: 25px;
+        width: 25px;
+        position: relative;
+        display: block;
+        text-decoration: none;
+    }
+
+    .messages_btn_mobile:hover{
+        transform: scale(1.1);
+    }
+    
+    .log_in_btn_mobile {
+        height: 25px;
+        width: 25px;
+        position: relative;
+        display: block;
+        text-decoration: none;
+    }
+
+    .log_in_btn_mobile:hover{
+        transform: scale(1.1);
+    }
+
+    .language_selector {
+        font-size: smaller;
+    }
 }

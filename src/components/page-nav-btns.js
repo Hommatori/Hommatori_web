@@ -16,6 +16,7 @@ export default function ResultNavContainer({ total_rows, maxResultsToDisplay, pa
   const [endIndex, setEndIndex] = useState(5) // index of the last rendered link in the pageNumbers array
   const pageNumbers = Array.from({ length: Math.ceil(total_rows / maxResultsToDisplay) }, (_, i) => i + 1) // create an array that contains all necessary pages that ad data from server are stored to
   const buttonWidth = 70 // width of an indivdual page button in the page navigation div
+  const smallBtnWidth = 52 // width of an indivdual page button in the page navigation div when btn container width < 500px
 
   // modify the query parameter as needed - these consts are used by the previous & next page links
   const previousPage = page - 1
@@ -37,16 +38,20 @@ export default function ResultNavContainer({ total_rows, maxResultsToDisplay, pa
     if (containerRef.current) { // if containerRef has current element
       setNavBtnContainerWidth(containerRef.current.offsetWidth) // set page link container width to component state
       const getWidth = () => { // window event listener calls this on window resize
-          setNavBtnContainerWidth(containerRef.current.offsetWidth) // update page link container width to component state if window and the container accordinly is resized
+        setNavBtnContainerWidth(containerRef.current.offsetWidth) // update page link container width to component state if window and the container accordinly is resized
       }
       window.addEventListener("resize", getWidth) // add event listener to window and call getWidth on window resize
       return () => window.removeEventListener("resize", getWidth) // event listener cleanup
     }
   }, [])
 
+  function getBtnWidth() {
+    return navBtnContainerWidth < 300 ? smallBtnWidth : buttonWidth
+  }
+
   useEffect(() => {
     if (navBtnContainerWidth) { // if individual page link container has width stored in component state..
-      const maxButtons = Math.floor(navBtnContainerWidth / buttonWidth) // calculate amount of buttons that fit the page link container
+      const maxButtons = Math.floor(navBtnContainerWidth / getBtnWidth()) // calculate amount of buttons that fit the page link container
       const totalPages = pageNumbers.length // get total amount of pages from the length of the pageNumbers list
 
       // calculate start (first page link to display) and end (last page link to display) indexes -> basically what links to display..

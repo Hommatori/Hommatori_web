@@ -27,7 +27,9 @@
     background-color: #02fb4419;
 }
 
-.singleAdImage {
+.singleAdImageWrapper {
+    position: relative;
+    height: 100px;
 }
 
 .singleAdData {
@@ -64,4 +66,45 @@
     display: flex;    
     justify-content: space-between;
     font-size: 15px;
+}
+
+@media screen and (max-width: 800px){
+    .cardWrapper {
+        display: flex;
+        flex-direction: column;
+        flex-flow: row wrap;
+        gap: 20px;
+    }
+    
+    .singleAd {
+        width: 40%;
+        height: auto;
+        border-radius: 0.2rem;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 10px;
+    }
+
+    .singleAdDataTop {
+        display: flex;
+        flex-direction: column;
+        max-height: 170px;
+    }
+    
+    .header {
+        margin-block-start: 0.5em;
+        font-size: medium;
+    }
+    
+    .price {
+        font-size: medium;
+    }
+    
+    .description {
+        font-size: small
+    }
+    
+    .singleAdDataBottom {
+        font-size: small;
+    }
 }

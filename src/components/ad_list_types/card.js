@@ -26,6 +26,20 @@ export default function Card({ data, translations }) {
 
         return `${formattedDate} ${formattedTime}`
     }
+    function getSingleImage(image) {
+        let imageToDisplay = null
+        if (image) {
+            try {
+                const imageArray = JSON.parse(image)
+                if (Array.isArray(imageArray)) {               
+                imageToDisplay = imageArray[0]
+                }
+            } catch {
+                imageToDisplay = image.replace(/['"\r\n]+/g, '')
+            }
+        }
+        return imageToDisplay
+    }
 
     return(
         <div className={styles.cardWrapper}>
@@ -33,19 +47,7 @@ export default function Card({ data, translations }) {
                 return <Link
                             className={styles.singleAd}
                             key={item.adid}
-                            href={`/ad/${item.adid}/${item.header}`}>
-                    {
-                        item.image != null && item.image.length != 0 ?
-                        <Image
-                            height={item.image != null ? 180 : 0}
-                            className={styles.singleAdImage}
-                            //src={item.image ? item.image : ""}
-                            src={""}
-                            alt="hommatori"
-                            as="image"
-                        />
-                        : <></>
-                    }                    
+                            href={`/ad/${item.adid}/${item.header}`}>                 
                     <div className={styles.singleAdData}>
                         <div className={styles.singleAdDataTop}>
                             <h3 className={styles.header}>{item.header}</h3>                            

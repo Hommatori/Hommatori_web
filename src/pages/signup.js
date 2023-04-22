@@ -3,46 +3,26 @@ import styles from '../styles/account.module.css'
 import cookie from 'cookie';
 
 export const getServerSideProps = async ({ req, res }) => {
-    const cookies = cookie.parse(req.headers.cookie || '');
-    const userCookie = cookies['user'];
-    const sessionCookie = cookies['session'];
-    let data = null
+    // Get all cookies associated with the request
+    const cookies = req.headers.cookie;
+    // Check if the "user" cookie exists
+    const userCookieExists = cookies && cookies.includes("user=");
+    // Check if the "session" cookie exists
+    const sessionCookieExists = cookies && cookies.includes("session=");
 
-    if (!userCookie) {
-        res.setHeader("location", "/login");
-        res.statusCode = 401;
+    if (!userCookieExists && !sessionCookieExists) {
+        res.setHeader("location", "/");
+        res.statusCode = 302;
         res.end();
         return { props: {} };
     }
-    
-    const cookieHeader = `user=${userCookie}; session=${sessionCookie}`;
-    const decodedUser = JSON.parse(decodeURIComponent(userCookie));
-    try {
-        const response = await fetch(`http://localhost:8080/userr/getprivatedata/${decodedUser.id}`, {
-            headers: {
-            Cookie: cookieHeader,
-            },
-        });
-
-        if (!response.ok) {
-            res.setHeader('location', '/login');
-            res.statusCode = 302;
-            res.end();
-            return { props: {} };
-        }
-        data = await response.json();
-
-        
-    } catch (err) {
-
-    }
 
     return {
-        props: { data },
+        props: {},
     };
 };
 
-export default function Account({ translations, data }) {
+export default function Signup({ translations, data }) {
 
     console.log(data)
 
@@ -64,9 +44,8 @@ export default function Account({ translations, data }) {
             </Head>
 
             <main>
-                <div>account</div>
-                <h1>Welcome, {data.userid}!</h1>
-                <p>Your email address is: {data.email}</p>
+                <br/><br/><br/><br/><br/><br/><br/>
+                <div>sign up</div>
             </main>
         </>
     )
