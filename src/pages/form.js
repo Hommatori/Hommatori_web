@@ -1,249 +1,182 @@
-import { useState, useEffect } from "react"
-import styles from '../styles/form.module.css'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import cookie from 'cookie';
-
+import cookie from 'cookie'
+import AdForm from '../components/form_components/ad-details.js'
+import AdConfirmation from '../components/form_components/ad-confirmation.js'
+import styles from '../styles/form.module.css'
 
 export const getServerSideProps = async ({ req, res }) => {
-    const cookies = cookie.parse(req.headers.cookie || '');
-    const userCookie = cookies['user'];
-    const sessionCookie = cookies['session'];
-    let data = null
+  const cookies = cookie.parse(req.headers.cookie || '')
+  const accessToken = cookies['accessToken']
+  const userCookie = cookies['userData']
+  let userData = null
+  let shouldRedirect = false
 
-    if (!userCookie) {
-        res.setHeader("location", "/login");
-        res.statusCode = 302;
-        res.end();
-        return { props: {} };
+  if (!accessToken || !userCookie) {
+    res.setHeader('location', '/login')
+    res.statusCode = 302
+    res.end()
+    shouldRedirect = true
+    return { props: {} }
+  }
+
+  const cookieHeader = 'accessToken=' + accessToken
+  const decodedUser = JSON.parse(decodeURIComponent(userCookie))
+  try {
+    const response = await fetch('http://localhost:8080/userr/getprivatedata/' + decodedUser.id, {
+      headers: {
+        Cookie: cookieHeader,
+        credentials: 'include'
+      },
+    })
+    if (!response.ok) {
+      res.setHeader('location', '/login')
+      res.statusCode = 302
+      res.end()
+      shouldRedirect = true
+      return { props: {} }      
     }
-    
-    const cookieHeader = `user=${userCookie}; session=${sessionCookie}`;
-    const decodedUser = JSON.parse(decodeURIComponent(userCookie));
-    try {
-        const response = await fetch(`http://localhost:8080/userr/getprivatedata/${decodedUser.id}`, {
-            headers: {
-            Cookie: cookieHeader,
-            },
-        });
+    userData = await response.json()
+  } catch (err) {}
 
-        if (!response.ok) {
-            res.setHeader('location', '/login');
-            res.statusCode = 302;
-            res.end();
-            return { props: {} };
-        }
-        data = await response.json();
+  return {
+    props: { userData, shouldRedirect },
+  }
+}
 
-        
-    } catch (err) {
+export default function Form({ translations, userData, shouldRedirect }) {
+  const router = useRouter()
+  const [userDataFromParams, setUserDataFromnParams] = useState(userData)
+  const [step, setStep] = useState(1)
+  const [type, setType] = useState('')
+  const [header, setHeader] = useState('')
+  const [description, setDescription] = useState('')
+  const [location, setLocation] = useState(0)
+  const [price, setPrice] = useState(0)
+  const [region, setRegion] = useState('')
+  const [municipality, setMunicipality] = useState('')
+  const [image, setImage] = useState(null)
 
-    }
-
-    return {
-        props: { data },
-    };
-};
-
-export default function Form({ translations, id, jwt, response, data }) {
-    const [userData, setUserData] = useState([])
-    const router = useRouter()
-
-
-    useEffect(() => { //automatically scrolls to the top of the page, useful for mobile users
+  useEffect(() => {
+    const requiredCookies = ['accessToken', 'userData']
+    const cookies = document.cookie.split('; ').reduce((acc, c) => {
+      const [key, value] = c.split('=')
+      acc[key] = value
+      return acc
+    }, {})
+    const hasCookies = requiredCookies.every((cookieName) =>
+      cookies.hasOwnProperty(cookieName)
+    )
+    if (!hasCookies) {
+      router.push('/login')
+      return
+    } else {
+      // Automatically scrolls to the top of the page, useful for mobile users
       window.scrollTo(0, 0)
-    }, []);
+    }
+  }, [])
+
+  const prevStep = (e) => {
+    e.preventDefault()
+    setStep(1)
+  }
+
+  const nextStep = (e) => {
+    e.preventDefault()
+    setStep(2)
+  }
+
+  const handleChange = (setter) => (e) => {
+    setter(e.target.value)
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
   
-    if(jwt != null){
-    decodedToken = jwt_decode(jwt);
-    loggedInName = decodedToken.user.name;
-    }
-
-    const handleChange = input => e => {   //Handle fields change
-      //this.setUserData({ [input]: e.target.value });
-      userData[input] = e.target.value;
-    }
-
-    const handleImageChange = (e) => {
-      userData.image = e.target.files[0];
-    }
-
-    const handleDelete = async (e) => {
-      await axios.delete(Constants.API_ADDRESS + '/meal/' + id,
-      {
-        headers: {
-          'Authorization': 'Bearer ' + jwt
+    const requiredCookies = ['user', 'session']
+    const cookies = document.cookie.split('; ').reduce((acc, c) => {
+      const [key, value] = c.split('=')
+      acc[key] = value
+      return acc
+    }, {})
+  
+    const hasCookies = requiredCookies.every((cookieName) => cookies.hasOwnProperty(cookieName))
+    if (!hasCookies || !userDataFromParams) {
+      router.push('/login')
+    } else {
+      // Prepare form data
+      const formData = new FormData()
+      formData.append('type', type)
+      formData.append('header', header)
+      formData.append('description', description)
+      formData.append('location', location)
+      formData.append('price', price)
+      formData.append('userid', userDataFromParams.userid)
+      formData.append('region', region)
+      formData.append('municipality', municipality)
+      if (image) {
+        formData.append('image', image)
       }
-      });
-      router.push("/business");
-    }
-
-    const handleCancel = async => {
-        router.push("/business");
-    }
-    
-    useEffect(() => {          
-
-      const loadProfileDataWithJWT = async () => { //load user data to show here
-        try {
-
-          const results = await axios.get(Constants.API_ADDRESS + '/meal/byid/' +  id,
-          {
-              headers: {
-                  'Authorization': 'Bearer ' + jwt
-              }
-          })
-          if (results.data && results.data.length > 0)
-          {
-            results.data[0].image = null;
-          setUserData(results.data[0]);
-          
-          }
-        } catch(error) {
-            console.log("something went wrong");
-        }
-      }    
-        if(id !== "new")
-      {
-
-      loadProfileDataWithJWT();
-    }
-    else{
-      console.log("new");
-    }
-    }, [jwt]);
-
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-
-      if(!userData.idfood)
-      {
-        userData.idrestaurant = decodedToken.user.id;
-      }
+  
       try {
-        var result = await axios.post(Constants.API_ADDRESS + "/meal",
-        {
-          idfood: userData.idfood,
-          name: userData.name,
-          category: userData.category,
-          description: userData.description,
-          price: userData.price,
-          idrestaurant: userData.idrestaurant
-        });
-        if(!userData.idfood)
-        {
-          userData.idfood = result.data.idfood;
+        // Replace the URL with your API endpoint
+        const response = await fetch('http://localhost:8080/ad', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            Cookie: 'user=' + cookies.user + '; session=' + cookies.session,
+          },
+        })
+  
+        if (!response.ok) {
+          throw new Error('HTTP error! Status: ' + response.status)
         }
-        console.log("image");
-        if(userData.image)
-        {
-          console.log("Update image");
-          const data = new FormData();
-          data.append('file', userData.image);
-          data.append('idfood', userData.idfood);
-          var result = await axios.put(Constants.API_ADDRESS + "/meal/imageupload",
-            data
-          );
-        }
-        alert('Tallennettu!');
-        navigation("/business");
+  
+        const data = await response.json()
+        console.log(data)
+        console.log('successfully added new ad')
+  
+        // Handle success (e.g., show a success message, navigate to another page)
+      } catch (error) {
+        console.error('Error submitting form data:', error)
+  
+        // Handle error (e.g., show an error message)
       }
-
-        catch(error){
-          alert('Tallennus epäonnistui');
-        }
     }
+  }
 
-    
+  const values = { type, header, description, location, price, region, municipality, image }
+
   return (
-    <div className={styles.main}>
-        <div className={styles.editContent}>
-        <div className={styles.editTitle}>Edit your food: </div>
-        <div className={styles.editSubTitle}>Click save to save the changes, cancel to take you back and trashcan to delete the food.</div>
-
-        <form className={styles.editForm} onSubmit={ handleSubmit }>
-                
-                <div className="editMenuTitle">Name:</div>
-                <input
-                    type="text"
-                    className={styles.editField}
-                    name="name"
-                    placeholder="name"
-                    onChange={handleChange('name')}
-                    defaultValue={userData.name}
-                    autoComplete="off"
-                    maxLength="50"
-                    required
-                />
-
-            <h1>Protected Page</h1>
-                <div>{JSON.stringify(data)}</div>
-
-                <div className="editMenuTitle">Description:</div>
-                <input
-                    type="text"
-                    className={styles.editFieldDesc}
-                    name="description"
-                    placeholder="description"
-                    onChange={handleChange('description')}
-                    defaultValue={userData.description}
-                    autoComplete="off"
-                    maxLength="255"
-                    required
-                />
-                <div className="editMenuTitle">Category:</div>
-                <input
-                    type="text"
-                    className={styles.editField}
-                    name="category"
-                    placeholder="category"
-                    onChange={handleChange('category')}
-                    defaultValue={userData.category}
-                    autoComplete="off"
-                    maxLength="50"
-                    required
-                />
-                <div className="editMenuTitle">Price:</div>
-                <input
-                    type="text"
-                    className={styles.editField}
-                    name="price"
-                    placeholder="price"
-                    onChange={handleChange('price')}
-                    defaultValue={userData.price}
-                    autoComplete="off"
-		pattern="[0-9\.]+"
-		title="Only digits and ."
-                    maxLength="10"
-                    required
-                />
-                <div className={styles.editMenuTitle}>Image: (.jpg/.jpeg/.png only!)</div>
-                <input
-                    type="file"
-                    className={styles.editField}
-                    name="image"
-                    placeholder="image"
-                    onChange={handleImageChange}
-                    autoComplete="off"
-                />
-                <div className="buttons">
-                  <div onClick={handleCancel}><div className="btnText">Cancel</div><div className={styles.btnIcon}>cancel</div></div>
-                  <div onClick={handleDelete}>remove</div>
-                  <div onClick={handleSubmit}><div className="btnText">Save</div><div className={styles.btnIcon}>submit</div></div>
-
-                </div>
-        
-        </form>
-        </div>
-        
-
-        
-
-
-    
-    </div>
-
-
-
-
-  );
+    <main className={styles.main}>
+      { !shouldRedirect ?
+      <>
+      <h3>{translations.publish.publish}</h3>
+      <div>{step == 1 ? translations.publish.first_phase : translations.publish.second_phase}</div>
+      { step == 1 ?
+        <AdForm
+          nextStep={nextStep}
+          handleChange={handleChange}
+          values={values}
+          userData={userDataFromParams}
+          setType={setType}
+          setRegion={setRegion}
+          setMunicipality={setMunicipality}
+          setHeader={setHeader}
+          setDescription={setDescription}
+          setPrice={setPrice}
+          setImage={setImage}
+          translations={translations} />
+        :
+        <AdConfirmation
+          prevStep={prevStep}
+          values={values} 
+          submit={handleSubmit}
+          translations={translations} />
+      }
+      </>
+      : <div onLoad={window.location.reload()}>Redirecting...</div>
+    }
+    </main>
+  )
 }

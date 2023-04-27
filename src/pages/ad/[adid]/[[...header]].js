@@ -10,6 +10,7 @@ export async function getServerSideProps(context) {
     var address = process.env.ADDRESS || 'http://localhost:8080';
     let errorMsg = false
     const adid = context.query.adid
+    console.log(adid)
     let dbResponse = {}
     let dbPublisher = {}
 

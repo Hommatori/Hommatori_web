@@ -1,50 +1,73 @@
 import Head from 'next/head'
 import styles from '../styles/account.module.css'
-import cookie from 'cookie';
+import cookie from 'cookie'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 export const getServerSideProps = async ({ req, res }) => {
-    const cookies = cookie.parse(req.headers.cookie || '');
-    const userCookie = cookies['user'];
-    const sessionCookie = cookies['session'];
-    let data = null
+  const cookies = cookie.parse(req.headers.cookie || '');
+  const accessToken = cookies['accessToken'];
+  const userCookie = cookies['userData'];
+  let userData = null;
 
-    if (!userCookie) {
-        res.setHeader("location", "/login");
-        res.statusCode = 401;
-        res.end();
-        return { props: {} };
+  console.log('accessToken:', accessToken);
+  console.log('userCookie:', userCookie);
+
+  if (!accessToken || !userCookie) {
+    console.log('Redirecting to /login (missing cookies)');
+    res.setHeader('location', '/login');
+    res.statusCode = 302;
+    res.end();
+    return { props: {} };
+  }
+
+  const cookieHeader = 'accessToken=' + accessToken;
+  const decodedUser = JSON.parse(decodeURIComponent(userCookie));
+  try {
+    const response = await fetch('http://localhost:8080/userr/getprivatedata/' + decodedUser.id, {
+      headers: {
+        Cookie: cookieHeader,
+        credentials: 'include'
+      },
+    });
+
+    console.log('Private data response:', response);
+
+    if (!response.ok) {
+      console.log('Redirecting to /login (response not ok)');
+      res.setHeader('location', '/login');
+      res.statusCode = 302;
+      res.end();
+      return { props: {} };
     }
-    
-    const cookieHeader = `user=${userCookie}; session=${sessionCookie}`;
-    const decodedUser = JSON.parse(decodeURIComponent(userCookie));
-    try {
-        const response = await fetch(`http://localhost:8080/userr/getprivatedata/${decodedUser.id}`, {
-            headers: {
-            Cookie: cookieHeader,
-            },
-        });
+    userData = await response.json();
+  } catch (err) {
+    console.error('Error fetching private data:', err);
+  }
 
-        if (!response.ok) {
-            res.setHeader('location', '/login');
-            res.statusCode = 302;
-            res.end();
-            return { props: {} };
-        }
-        data = await response.json();
-
-        
-    } catch (err) {
-
-    }
-
-    return {
-        props: { data },
-    };
+  return {
+    props: { userData },
+  };
 };
 
-export default function Account({ translations, data }) {
+export default function Account({ translations, userData }) {
+    const router = useRouter()
 
-    console.log(data)
+    useEffect(() => {
+         // Automatically scrolls to the top of the page, useful for mobile users
+    window.scrollTo(0, 0)
+      }, [])   
+
+    function logout() {
+        fetch('/api/logout', {
+            method: 'POST',
+        })
+        .then( function(){
+            router.push('/')
+        })
+    }
+
+    console.log(userData)
 
     return (
         <>
@@ -65,8 +88,15 @@ export default function Account({ translations, data }) {
 
             <main>
                 <div>account</div>
-                <h1>Welcome, {data.userid}!</h1>
-                <p>Your email address is: {data.email}</p>
+                { userData ?
+                <>
+                    <h1>Welcome, {userData.userid}!</h1>
+                    <p>Your email address is: {userData.email}</p>
+                    <button onClick={() => logout()}>log out</button>
+                </>
+                :
+                <div onLoad={window.location.reload()}>redirecting...</div>
+                }
             </main>
         </>
     )

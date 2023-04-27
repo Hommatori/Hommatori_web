@@ -43,7 +43,7 @@
     gap: 30px;
 }
 
-.messages_btn {    
+.announce_btn {    
     cursor: pointer;
     color: white;
     background-color: transparent;
@@ -60,13 +60,13 @@
     box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 3px
 }
 
-.messages_btn:hover {
+.announce_btn:hover {
     transition: all .2s ease;
     color: black;
     background-color: white;
 }
 
-.messages_btn_mobile {
+.announce_btn_mobile {
     display: none;
 }
 
@@ -97,6 +97,65 @@
     display: none;
 }
 
+.account_btn {
+    display: flex;
+    cursor: pointer;
+    color: white;
+    align-items: center;
+    gap: 6px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: black;  
+    height: 32px;
+    text-align: center;
+    font-weight: bold;
+    border-style: solid;
+    border-color: black;
+    border-radius: 0.4rem;
+    border-width: 3px;
+    text-decoration: none;
+    box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 3px;
+    transition: all .2s ease;
+}
+
+.account_btn:hover {
+    color: black;
+    background-color: transparent;
+}
+
+.account_btn_img_wrapper {
+    position: relative;
+    height: 30px;
+    width: 30px;
+}
+
+.account_btn_img_white,
+.account_btn_img_black {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    transition: opacity 0.2s ease;
+}
+
+.account_btn_img_black {
+    opacity: 0;
+}
+
+.account_btn:hover .account_btn_img_white {
+    opacity: 0;
+}
+
+.account_btn:hover .account_btn_img_black {
+    opacity: 1;
+}
+
+.account_btn_mobile {
+    display: none;
+}
+
 .language_selector {
     display: flex;
     gap: 15px;
@@ -118,37 +177,7 @@
     text-decoration: none;
 }
 
-@media screen and (max-width: 800px) and (min-width: 600px) {
-    .logoContainer {
-        position: relative;
-        height: 37px;
-        width: 200px;
-        margin-left: -4px;
-        margin-top: 5px;
-    }
-    
-    .navbar_navigation_icons {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        gap: 10px;
-    }
-    
-    .messages_btn {
-        font-size: small;
-    }
-    
-    .log_in_btn {
-        font-size: small;
-    }
-
-    .language_selector {
-        font-size: smaller;
-    }
-}
-
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
     .navbar_wrapper {
         padding-left: 10px;
         padding-right: 10px;
@@ -170,7 +199,7 @@
         gap: 10px;
     }
     
-    .messages_btn {
+    .announce_btn {
         display: none;
     }
     
@@ -178,15 +207,44 @@
         display: none;
     }  
 
-    .messages_btn_mobile {
+    .account_btn {
+        color: black;
+        gap: 2px;
+        background-color: transparent;  
+        height: 32px;
+        text-align: center;
+        font-weight: bold;
+        border: none;
+        border-radius: 0.4rem;
+        text-decoration: none;
+        box-shadow: none;
+        transition: all .1s ease;
+        align-items: center;
+    }
+
+    .account_btn:hover {
+        transform: scale(1.1);
+    }
+    
+    .account_btn_img_wrapper {
+        position: relative;
         height: 25px;
         width: 25px;
+    }
+    
+    .account_btn_img_black {
+        opacity: 1;
+    }
+    
+    .announce_btn_mobile {
+        height: 26px;
+        width: 26px;
         position: relative;
         display: block;
         text-decoration: none;
     }
 
-    .messages_btn_mobile:hover{
+    .announce_btn_mobile:hover{
         transform: scale(1.1);
     }
     

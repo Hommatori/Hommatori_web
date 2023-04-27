@@ -1,35 +1,40 @@
-import { serialize } from 'cookie';
+import jwt from 'jsonwebtoken'
+import { decryptData } from '../../components/crypto.js'
 
-async function login(req, res) {  
-  const response = await fetch('http://localhost:8080/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: req.headers.authorization,
-    },
-    body: JSON.stringify(req.body),
-    credentials: 'include',
-  });
+async function login(req, res) {
+  try {
+    const response = await fetch('http://localhost:8080/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: req.headers.authorization
+      },
+      body: JSON.stringify(req.body),
+      credentials: 'include'
+    })
 
-  if (response.ok) {    
-    const data = await response.json();
+    if (response.ok) {
+      const setCookieHeader = response.headers.get('set-cookie')
+      const accessToken = setCookieHeader.split('=')[1].split(';')[0]
 
-    const cookies = [
-      serialize('session', JSON.stringify(data.sessionCookie), {
-        maxAge: data.sessionCookie.originalMaxAge,
-        path: data.sessionCookie.path,
-      }),
-      serialize('user', JSON.stringify(data.user), {
-        maxAge: data.sessionCookie.originalMaxAge,
-        path: data.sessionCookie.path,
-      }),
-    ];
-    res.setHeader('Set-Cookie', cookies);
+      const decodedToken = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET)
+      console.log(decodedToken)
+      const encryptedUserData = decodedToken.token
+      console.log( "123: " + encryptedUserData)
+      const userData = decryptData(encryptedUserData)
 
-    res.status(200).json('Logged in');
-  } else {
-    res.status(401).send('Unauthorized');
+      const accessTokenCookie = `accessToken=${accessToken}; HttpOnly; Path=/; Max-Age=${24 * 60 * 60 * 1000}`
+      const userDataCookie = `userData=${userData}; Path=/; Max-Age=${24 * 60 * 60 * 1000}`
+
+      res.setHeader('Set-Cookie', [accessTokenCookie, userDataCookie])
+      res.status(200).json('logged in')
+    } else {
+      res.status(401).send('Unauthorized')
+    }
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: 'An error occurred while logging in' })
   }
 }
 
-export default login;
+export default login
