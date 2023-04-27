@@ -1,0 +1,291 @@
+@media screen and (min-width: 500px){
+    .main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        justify-content: center;
+        background-color: rgb(251, 251, 251);
+    }
+    
+    .loginContent {
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 20px;
+        background-color: white;
+        border-radius: 0.4rem;
+        box-shadow: rgba(0, 0, 0, 0.40) 0px 1px 5px;
+    }
+    
+    .logoContainer {
+        align-self: center;
+        position: relative;
+        height: 40px;
+        width: 200px;
+        margin-bottom: 20px;
+    }
+    
+    .loginTitle {
+        font-weight: 700;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+    
+    .loginSubTitle {
+        font-size: smaller;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    
+    .loginForm {
+        display: flex;
+        flex-direction: column;
+        background-color: transparent;
+        border: none;
+    }
+    
+    .loginEmail {
+        padding: 10px;
+        height: 25px;
+        padding-left: 5px;
+        border: 1px solid lightgrey;
+        border-radius: 0.3rem;
+        font-size: medium;
+    }
+    
+    .loginEmail:hover {
+        border-color: #25db55;
+    }
+    
+    .loginEmail:focus {
+        outline: none !important;
+        border: 1px solid #25db55;
+        background-color: #f2fff5;
+        font-size: small;
+    }
+    
+    .loginPassword {
+        padding: 10px;
+        height: 25px;
+        margin-top: 25px;
+        border: 1px solid lightgrey;
+        border-radius: 0.3rem;
+        font-size: medium;
+    }
+    
+    .loginPassword:hover {
+        border-color: #25db55;
+    }
+    
+    .loginPassword:focus {
+        outline: none !important;
+        border: 1px solid #25db55;
+        background-color: #f2fff5;
+        font-size: small;
+    }
+    
+    .loginSubmit {
+        margin-top: 25px;
+        font-size: medium;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+        background-color: #25db55;
+        border-radius: 0.3rem;
+        border: 3px solid #25db55;
+        transition: all 0.1s;
+    }
+    
+    .loginSubmit:hover {
+        border-color: black;
+        background-color: #25db55;
+    }
+    
+    .loginBtnRegister {
+        font-size: medium;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 35px;
+        background-color: black;
+        color: white;
+        border-radius: 0.3rem;
+        border: 3px solid black;
+        transition: all 0.1s;
+        text-decoration: none;
+    }
+    
+    .loginBtnRegister:visited {
+        color: white;
+        text-decoration: none;
+    }
+    
+    .loginBtnRegister:hover {
+        background-color: #25db55;
+        color: black;
+    }
+    
+    .loginMiddleText {
+        cursor: default;
+        text-align: center;
+        font-size: medium;
+        margin-top: 30px;
+        margin-bottom: 10px;
+    }
+    
+    .loginErrorMessage {
+        visibility: hidden;
+        color: red;
+        margin-bottom: 5px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .loginContent {
+        width: 100vw;
+        height: 100vh;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: white;
+        border-radius: 0px;
+        box-shadow: none;
+    }
+    
+    .logoContainer {
+        align-self: center;
+        position: relative;
+        height: 40px;
+        width: 400px;
+        margin-bottom: 30px;
+    }
+    
+    .loginTitle {
+        font-weight: bold;
+        font-size: 1.7rem;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+    
+    .loginSubTitle {
+        font-size: medium;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    
+    .loginForm {
+        display: flex;
+        flex-direction: column;
+        background-color: transparent;
+        border: none;
+    }
+    
+    .loginEmail {
+        padding: 10px;
+        height: 25px;
+        padding-left: 5px;
+        border: 1px solid lightgrey;
+        border-radius: 0.3rem;
+        font-size: medium;
+    }
+    
+    .loginEmail:hover {
+        border-color: #25db55;
+    }
+    
+    .loginEmail:focus {
+        outline: none !important;
+        border: 1px solid #25db55;
+        background-color: #f2fff5;
+        font-size: small;
+    }
+    
+    .loginPassword {
+        padding: 10px;
+        height: 25px;
+        margin-top: 25px;
+        border: 1px solid lightgrey;
+        border-radius: 0.3rem;
+        font-size: medium;
+    }
+    
+    .loginPassword:hover {
+        border-color: #25db55;
+    }
+    
+    .loginPassword:focus {
+        outline: none !important;
+        border: 1px solid #25db55;
+        background-color: #f2fff5;
+        font-size: small;
+    }
+    
+    .loginSubmit {
+        margin-top: 25px;
+        font-size: medium;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+        background-color: #25db55;
+        border-radius: 0.3rem;
+        border: 3px solid #25db55;
+        transition: all 0.1s;
+    }
+    
+    .loginSubmit:hover {
+        border-color: black;
+        background-color: #25db55;
+    }
+    
+    .loginBtnRegister {
+        font-size: medium;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 35px;
+        background-color: black;
+        color: white;
+        border-radius: 0.3rem;
+        border: 3px solid black;
+        transition: all 0.1s;
+        text-decoration: none;
+    }
+    
+    .loginBtnRegister:visited {
+        color: white;
+        text-decoration: none;
+    }
+    
+    .loginBtnRegister:hover {
+        background-color: #25db55;
+        color: black;
+    }
+    
+    .loginMiddleText {
+        cursor: default;
+        text-align: center;
+        font-size: medium;
+        margin-top: 30px;
+        margin-bottom: 10px;
+    }
+    
+    .loginErrorMessage {
+        visibility: hidden;
+        color: red;
+        margin-bottom: 5px;
+    }
+}

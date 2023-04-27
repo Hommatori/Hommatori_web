@@ -1,8 +1,9 @@
 {
   "fi": {   
     "navbar" : {
-      "messages": "Viestit",
-      "log_in": "Kirjaudu sisään"
+      "announce": "Julkaise ilmoitus",
+      "log_in": "Kirjaudu sisään",
+       "account": "Oma tili"
     },
     "homepage": {
       "metadata": {
@@ -57,11 +58,56 @@
       "publisher": "Julkaisija",
       "description": "Kuvaus",
       "send_message": "Lähetä viesti"
+    },
+    "login": {
+      "login_title": "Kirjaudu sisään tai luo tili",
+      "login_description": "Kirjaudu Hommatoriin alla tai luo uusi tili",
+      "email": "sähköposti",
+      "password": "salasana",
+      "server_error": "Virhe: Palvelimeen ei saa yhteyttä",
+      "wrong_credentials": "Sähköposti tai salasana ei täsmää!",
+      "no_account": "Eikö sinulla ole vielä tiliä?",
+      "login": "Kirjaudu",
+      "register": "Luo uusi tili",
+      "email_hint":"Osoitteeseen kuuluu @-merkki ja piste"
+    },
+    "register": {
+
+    },
+    "account": {
+
+    },
+    "publish": {
+      "region": "Maakunta:",
+      "choose_region": "-- Valitse maakunta --",
+      "municipality": "Kunta:",
+      "choose_municipality": "-- Valitse kunta --",
+      "type": "Ilmoituksen tyyppi:",
+      "title": "Otsikko:",
+      "description": "Ilmoitus:",
+      "postnumber": "Postinumero:",
+      "price": "Hintapyyntö:",
+      "name": "Nimi:",
+      "email": "Sähköposti:",
+      "phonenumber": "Puhelinnumero:",
+      "type_and_location": "Ilmoituksen tyyppi ja sijainti",
+      "info": "Ilmoituksen tiedot",
+      "contact_info": "Yhteystietoni",
+      "remove_photos": "Poista kuvat",
+      "next": "Seuraava",
+      "publish": "Julkaise ilmoitus",
+      "jobseeker": "työnhakija",
+      "joboffer": "työtarjous",
+      "image": "Kuva:",
+      "add_image": "Lisää kuva",
+      "first_phase": "1) Lisää ilmoituksen tiedot",
+      "second_phase": "2) Tarkasta ilmoituksen tiedot"
+
     }
   },  
   "en": {
     "navbar" : {
-      "messages": "Messages",
+      "announce": "Publish an ad",
       "log_in": "Log in"
     },
     "homepage": {

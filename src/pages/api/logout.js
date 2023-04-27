@@ -11,13 +11,12 @@ async function logout(req, res) {
 
   if (response.ok) {
     // Delete the cookies
-    const cookie1 = serialize('user', '', { maxAge: 0, path: '/' });
-    const cookie2 = serialize('session', '', { maxAge: 0, path: '/' });
+    const cookie1 = serialize('userData', '', { maxAge: 0, path: '/' });
+    const cookie2 = serialize('accessToken', '', { maxAge: 0, path: '/' });
 
 
     // Set the cookie as an HTTP response header
     res.setHeader('Set-Cookie', [cookie1, cookie2]);
-    res.setHeader('location', '/');
     res.status(200).json({ message: 'Logged out' });
   } else {
     res.status(response.status).json({ message: 'Logout failed' });

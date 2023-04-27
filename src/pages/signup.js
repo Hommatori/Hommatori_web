@@ -1,26 +1,26 @@
 import Head from 'next/head'
 import styles from '../styles/account.module.css'
-import cookie from 'cookie';
+import cookie from 'cookie'
 
 export const getServerSideProps = async ({ req, res }) => {
     // Get all cookies associated with the request
-    const cookies = req.headers.cookie;
+    const cookies = req.headers.cookie
     // Check if the "user" cookie exists
-    const userCookieExists = cookies && cookies.includes("user=");
+    const userCookieExists = cookies && cookies.includes("user=")
     // Check if the "session" cookie exists
-    const sessionCookieExists = cookies && cookies.includes("session=");
+    const sessionCookieExists = cookies && cookies.includes("session=")
 
     if (!userCookieExists && !sessionCookieExists) {
-        res.setHeader("location", "/");
-        res.statusCode = 302;
-        res.end();
-        return { props: {} };
+        res.setHeader("location", "/")
+        res.statusCode = 302
+        res.end()
+        return { props: {} }
     }
 
     return {
         props: {},
-    };
-};
+    }
+}
 
 export default function Signup({ translations, data }) {
 

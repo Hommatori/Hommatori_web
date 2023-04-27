@@ -44,7 +44,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
+    width: 100%;    
 }
 
 .searchbox_input_field {
@@ -55,12 +55,12 @@
     padding: 10px;
     padding-right: 80px;
     font-size: medium;
+    border: 1px solid white;
 }
 
 .searchbox_input_field:focus {
     outline: none !important;
     border: 1px solid #25db55;
-    height: 1.43rem;
 }
 
 .searchbox_input_submit_btn { 
@@ -70,7 +70,7 @@
     padding-right: 15px;
     padding-left: 15px;
     position: absolute;
-    right: 3px;
+    right: 4px;
     background-color: #25db55;
     border-radius: 0.3rem;
     font-weight: bold;
@@ -292,10 +292,6 @@
         font-size: x-small;
     }
     
-    .searchbox_input_field:focus {
-        height: 0.78rem !important;
-    }
-    
     .searchbox_input_submit_btn {
         padding-top: 3px;
         padding-bottom: 0px;
@@ -306,7 +302,7 @@
         border-top-left-radius: 0rem;
         border-top-right-radius: 0.2rem;
         border-bottom-right-radius: 0.2rem;
-        height: 22px;
+        height: 23px;
         width: 20px;
     }
     .selections_container_bottom {

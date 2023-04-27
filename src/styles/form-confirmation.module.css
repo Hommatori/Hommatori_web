@@ -1,0 +1,348 @@
+.Signup{
+    display: block;
+    position: relative;
+    top: 1rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.signupContent{
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signupTitle{
+    cursor: default;
+    font-family: 'Dosis', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.signupSubTitle{
+    text-align: center;
+    cursor: default;
+    font-size: 0.8rem;
+    margin-bottom: 2rem;
+}
+
+.signupForm{
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    margin-bottom: 1rem;
+}
+
+.passwordForm{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 0.1rem solid lightgrey;
+    border-radius: 0.4rem;
+}
+
+#passwordEye{
+    height: 1.6rem;
+    padding: 0.7rem;
+    cursor: pointer;
+}
+
+#signupPassword{
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    padding-left: 0.6rem;
+    font-size: 1.3rem;
+    border: none;
+    border-right: 0.1rem solid lightgrey !important;
+}
+
+#signupPassword:hover{
+    border-color: orange;
+}
+
+.signupField{
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.6rem;
+    margin-bottom: 1.3rem;
+    border: 0.1rem solid lightgrey;
+    border-radius: 0.4rem;
+    font-size: 1.3rem;
+}
+
+.signupField:hover{
+    border-color: orange;
+}
+
+.signupMiddleText{
+    cursor: default;
+    text-align: center;
+    font-weight: 700;
+    margin-top: 1.2rem;
+    margin-bottom: 1.2rem;
+}
+
+.signupDisclaimer{
+    cursor: default;
+    margin-top: 1rem;
+    font-size: 0.63rem;
+    text-align: center;
+}
+
+.signupDisclaimer a{
+    color: orange;
+}
+
+.signupDisclaimer a:hover{
+    color: rgb(255, 81, 0);
+}
+
+.signupDisclaimer a:visited{
+    color: orange;
+}
+.signupDisclaimer a:visited:hover{
+    color: rgb(255, 81, 0);
+}
+
+#passwordCreatingTip {
+    position: relative;
+    padding: 1rem;
+}
+  
+#passwordCreatingTip p {
+    padding-left: 3rem;
+    font-size: 0.8rem;
+}
+
+#passwordCreatingTip h4 {
+    font-size: 1rem;
+}
+  
+.valid {
+    color: green;
+}
+  
+.valid:before {
+    position: relative;
+    left: -35px;
+    content: "✔";
+}
+  
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+    color: red;
+}
+  
+.invalid:before {
+    position: relative;
+    left: -35px;
+    content: "✖";
+}
+
+.confirmationBtns{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.multiphaseFormBtn{
+    padding: 0.8rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 0.4rem;
+    transition: all 0.4s;
+    background-color: rgba(138, 228, 255, 0.685);
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.multiphaseFormBtn:hover{
+    background-color: rgb(0, 195, 255);
+}
+
+#confirmNext:hover{
+    background-color: rgba(46, 253, 91, 0.863) !important;
+}
+
+#confirmPrev:hover{
+    background-color: rgb(255, 130, 98) !important;
+}
+
+#signupSubmit{
+    margin-top: 1rem;
+    display: none;
+    padding: 0.8rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 0.4rem;
+    transition: all 0.2s;
+    background-color: rgb(252, 198, 99);
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+#signupSubmit:hover{
+    background-color: orange;
+    cursor: pointer;
+}
+
+.confirmationBox{
+    margin-bottom: 2.5rem;
+    cursor: default;
+}
+
+.confirmationBox p{
+    color: rgb(255, 123, 0);
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.confirmationContainer{
+    width: 250px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 2rem;
+    border: 1px solid rgb(255, 123, 0);
+    border-radius: 0.5rem;
+}
+
+.confirmationImage{
+    width: 250px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    border: 1px solid rgb(255, 123, 0);
+    border-radius: 0.5rem;
+}
+
+.processingSignup{
+    margin-top: 5rem;
+    text-align: center;
+}
+
+.processRoller {
+    margin-top: 1.5rem;
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.processRoller div {
+    animation: processRoller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    transform-origin: 40px 40px;
+}
+
+.processRoller div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: orange;
+    margin: -4px 0 0 -4px;
+}
+
+.processRoller div:nth-child(1) {
+    animation-delay: -0.036s;
+}
+
+.processRoller div:nth-child(1):after {
+    top: 63px;
+    left: 63px;
+}
+
+.processRoller div:nth-child(2) {
+    animation-delay: -0.072s;
+}
+
+.processRoller div:nth-child(2):after {
+    top: 68px;
+    left: 56px;
+}
+
+.processRoller div:nth-child(3) {
+    animation-delay: -0.108s;
+}
+
+.processRoller div:nth-child(3):after {
+    top: 71px;
+    left: 48px;
+}
+
+.processRoller div:nth-child(4) {
+    animation-delay: -0.144s;
+}
+
+.processRoller div:nth-child(4):after {
+    top: 72px;
+    left: 40px;
+}
+
+.processRoller div:nth-child(5) {
+    animation-delay: -0.18s;
+}
+
+.processRoller div:nth-child(5):after {
+    top: 71px;
+    left: 32px;
+}
+
+.processRoller div:nth-child(6) {
+    animation-delay: -0.216s;
+}
+
+.processRoller div:nth-child(6):after {
+    top: 68px;
+    left: 24px;
+}
+
+.processRoller div:nth-child(7) {
+    animation-delay: -0.252s;
+}
+
+.processRoller div:nth-child(7):after {
+    top: 63px;
+    left: 17px;
+}
+
+.processRoller div:nth-child(8) {
+    animation-delay: -0.288s;
+}
+
+.processRoller div:nth-child(8):after {
+    top: 56px;
+    left: 12px;
+}
+
+@keyframes processRoller {
+  0% {
+    transform: rotate(0deg);
+}
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.signupSuccessView{
+    margin-top: 5rem;
+    text-align: center;
+}
+
+.signupInputTitle{
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+@media (max-width: 600px){
+    .Signup{
+        left: 50vw;
+        transform: translate(-50%, 0);
+    }
+}
