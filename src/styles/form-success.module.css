@@ -1,0 +1,16 @@
+.text {
+    cursor: default;
+}
+
+.adLink {
+    color: #19933a;
+    text-decoration: none;
+}
+
+.adLink:hover {
+    color: #25db55;
+}
+
+.adLink:visited {
+    color: #19933a;
+}

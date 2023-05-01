@@ -40,8 +40,8 @@ export default function ResultNavContainer({ total_rows, maxResultsToDisplay, pa
       const getWidth = () => { // window event listener calls this on window resize
         setNavBtnContainerWidth(containerRef.current.offsetWidth) // update page link container width to component state if window and the container accordinly is resized
       }
-      window.addEventListener("resize", getWidth) // add event listener to window and call getWidth on window resize
-      return () => window.removeEventListener("resize", getWidth) // event listener cleanup
+      window.addEventListener('resize', getWidth) // add event listener to window and call getWidth on window resize
+      return () => window.removeEventListener('resize', getWidth) // event listener cleanup
     }
   }, [])
 

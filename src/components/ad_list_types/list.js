@@ -53,8 +53,8 @@ export default function List({ data, translations }) {
                     <div className={styles.singleAdImageWrapper}>
                         <Image
                             src={getSingleImage(item.image)}
-                            alt="hommatori"
-                            as="image"
+                            alt='hommatori'
+                            as='image'
                             fill
                             style={{ objectFit: 'fill' }}  
                         /> 

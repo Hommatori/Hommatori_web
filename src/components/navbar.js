@@ -14,41 +14,56 @@ export default function Navbar({ locale, translations }) {
     const router = useRouter()
     const [shouldShowLogin, setShouldShowLogin] = useState(true)
     const [userName, setUserName] = useState('')
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        const cookies = cookie.parse(document.cookie || "")
-        const userCookie = cookies["user"]
-        const sessionCookie = cookies["session"]
-        setShouldShowLogin(Boolean(!userCookie || !sessionCookie))
-        if (!shouldShowLogin) {
+      async function checkAuth() {
+        try {
+          const res = await fetch('/api/check-cookie-status')
+          const data = await res.json()
+  
+          if (data.authenticated) {
+            const cookies = cookie.parse(document.cookie || '')
+            const userCookie = cookies['userData']
             const decodedUser = JSON.parse(decodeURIComponent(userCookie))
             setUserName(decodedUser.fname)
+            setShouldShowLogin(false)
+          } else {
+            setShouldShowLogin(true)
+          }
+        } catch (error) {
+
         }
-    })
+        setIsLoading(false)
+      }
+      checkAuth()
+    }, [locale, router.asPath])
 
     return(
         <div className={styles.navbar}>
             <div className={styles.navbar_wrapper}>
-                <Link href="/">
+                <Link href='/'>
                     <div className={styles.logoContainer}>
                         <Image
                             className={styles.logo}
                             src={logo}
-                            alt="HOMMATORI"
-                            as="image"
+                            alt='HOMMATORI'
+                            as='image'
                             fill
                             style={{ objectFit: 'contain' }}
                             priority={true}
                         />
                     </div>
                 </Link>
+                { isLoading ? <></> : 
+
                 <div className={styles.navbar_navigation_icons}>                    
-                    <Link href="/form" className={styles.announce_btn}>{translations.announce}</Link>
-                    <Link href="/form" className={styles.announce_btn_mobile}>
+                    <Link href={shouldShowLogin ? '/login/?source=/form' : '/form'} className={styles.announce_btn}>{translations.announce}</Link>
+                    <Link href={shouldShowLogin ? '/login/?source=/form' : '/form'} className={styles.announce_btn_mobile}>
                         <Image
                             src={announce_icon}
                             alt={translations.announce}
-                            as="image"
+                            as='image'
                             fill
                             style={{ objectFit: 'contain' }}
                             priority={true}
@@ -57,55 +72,54 @@ export default function Navbar({ locale, translations }) {
                     {
                         shouldShowLogin ?                        
                         <>
-                        <Link href="/login" className={styles.log_in_btn}>{translations.log_in}</Link>
-                        <Link href="/login" className={styles.log_in_btn_mobile}>
+                        <Link href={`/login/?source=${router.asPath}`} className={styles.log_in_btn}>{translations.log_in}</Link>
+                        <Link href={`/login/?source=${router.asPath}`} className={styles.log_in_btn_mobile}>
                             <Image
                                 src={login_icon}
                                 alt={translations.log_in}
-                                as="image"
+                                as='image'
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 priority={true}
                             />
                         </Link></>
                         :<>
-                        {userName && !shouldShowLogin && (
-                            <>
-                                <Link href="/account" className={styles.account_btn}>
-                                    <div className={styles.account_btn_img_wrapper}>
-                                        <Image
-                                            src={user_icon_white}
-                                            alt={translations.log_in}
-                                            className={styles.account_btn_img_white}
-                                        />
-                                        <Image
-                                            src={login_icon}
-                                            alt={translations.log_in}
-                                            className={styles.account_btn_img_black}
-                                        />
-                                    </div>
-                                    {userName}
-                                </Link>
-                                <Link href="/account" className={styles.account_btn_mobile}>
+                        { userName && !shouldShowLogin && (
+                            <><Link href='/account' className={styles.account_btn}>
+                                <div className={styles.account_btn_img_wrapper}>
+                                    <Image
+                                        src={user_icon_white}
+                                        alt={translations.log_in}
+                                        className={styles.account_btn_img_white}
+                                        fill
+                                        style={{ objectFit: 'contain' }} />
                                     <Image
                                         src={login_icon}
                                         alt={translations.log_in}
-                                        as="image"
+                                        className={styles.account_btn_img_black}
                                         fill
-                                        style={{ objectFit: "contain" }}
-                                    />
-                                </Link>
-                            </>
-                        )}</>
-                    }
+                                        style={{ objectFit: 'contain' }} />
+                                </div>
+                                {userName}
+                            </Link>
+                            <Link href='/account' className={styles.account_btn_mobile}>
+                                <Image
+                                    src={login_icon}
+                                    alt={translations.log_in}
+                                    as='image'
+                                    fill
+                                    style={{ objectFit: 'contain' }} />
+                            </Link></>
+                        )}</>}
                     <div className={styles.language_selector}>
                         {
-                            locale == "fi" ?  <Link className={styles.link} href={router.asPath} locale="en">ENGLISH</Link>
+                            locale == 'fi' ?  <Link className={styles.link} href={router.asPath} locale='en'>ENGLISH</Link>
                             :
-                            <Link className={styles.link} href={router.asPath} locale="fi">SUOMI</Link>
+                            <Link className={styles.link} href={router.asPath} locale='fi'>SUOMI</Link>
                         }
                     </div>
                 </div>
+                }                
             </div>     
         </div>
     )

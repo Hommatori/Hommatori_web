@@ -26,14 +26,14 @@
     "search": {
       "list_of_months": ["tammi", "helmi", "maalis", "huhti", "touko", "kesä", "heinä", "elo", "syys", "loka", "marras", "joulu"],
       "today": "tänään",
-      "newest": "uusin ilmoitus",
-      "oldest": "vanhin ilmoitus",
+      "newest": "uusin ensin",
+      "oldest": "vanhin ensin",
       "lowest_salary": "alin hintapyyntö",
       "higest_salary": "suurin hintapyyntö",
       "lowest_offer": "alin tarjous",
       "higest_offer": "suurin tarjous",
-      "lowest_price": "halvin",
-      "higest_price": "kallein",
+      "lowest_price": "halvin ensin",
+      "higest_price": "kallein ensin",
       "page": "sivu",
       "dataFetchErrorMessage": "Oho, sattui virhe! Tietojen haku palvelimelta epäonnistui. Jos ongelma jatkuu, ota yhteyttä tukeen.",
       "no_results_msg": {
@@ -41,7 +41,9 @@
         "tips": "Voit yrittää uutta hakua eri alueelta tai uusilla hakusanoilla.."
       },
       "previous": "edellinen",
-      "next": "seuraava"
+      "next": "seuraava",
+      "show_as_list": "Listanäkymä",
+      "show_as_cards": "Korttinäkymä"
     },
     "error": {
       "metadata": {
@@ -57,7 +59,9 @@
       "jobseekers": "Työnhakijat",
       "publisher": "Julkaisija",
       "description": "Kuvaus",
-      "send_message": "Lähetä viesti"
+      "send_message": "Ota yhteyttä",
+      "email": "Sähköposti:",
+      "phonenumber": "Puhelinnumero:"
     },
     "login": {
       "login_title": "Kirjaudu sisään tai luo tili",
@@ -69,7 +73,8 @@
       "no_account": "Eikö sinulla ole vielä tiliä?",
       "login": "Kirjaudu",
       "register": "Luo uusi tili",
-      "email_hint":"Osoitteeseen kuuluu @-merkki ja piste"
+      "email_hint":"Osoitteeseen kuuluu @-merkki ja piste",
+      "language_selector": "In English"
     },
     "register": {
 
@@ -93,16 +98,32 @@
       "type_and_location": "Ilmoituksen tyyppi ja sijainti",
       "info": "Ilmoituksen tiedot",
       "contact_info": "Yhteystietoni",
-      "remove_photos": "Poista kuvat",
+      "remove_photo": "Poista",
       "next": "Seuraava",
+      "edit": "Jatka muokkausta",
       "publish": "Julkaise ilmoitus",
       "jobseeker": "työnhakija",
       "joboffer": "työtarjous",
+      "one_image": "kuva",
       "image": "Kuva:",
+      "images": "Kuvat:",
       "add_image": "Lisää kuva",
+      "optional_image": "HUOM! Voit julkaista myös ilman kuvia (max koko 5MB)",
       "first_phase": "1) Lisää ilmoituksen tiedot",
-      "second_phase": "2) Tarkasta ilmoituksen tiedot"
-
+      "second_phase": "2) Tarkasta ilmoituksen tiedot",
+      "valuehint_name": "Tämä nimi näytetään ilmoituksessa",
+      "valuehint_email": "Sähköpostisi näkyy ilmoituksessa",
+      "valuehint_phonenumber": "Puhelinnumerosi näkyy ilmoituksessa",
+      "region_alert": "Maakunta ei voi olla tyhjä",
+      "municipality_alert": "Kunta ei voi olla tyhjä",
+      "location_alert": "Postinumero on 5 numeron pituinen",
+      "header_alert": "Otsikon pituus on liian lyhyt",
+      "description_alert": "Ilmoituksen pituus on liian lyhyt",
+      "validate_data": "Tarkasta, että ilmoituksen tiedot ovat oikein",
+      "great": "Hienoa",
+      "is_published": "Ilmoituksesi on nyt julkaistu",
+      "find_ad_here": "Voit löytää ilmoituksesi",
+      "here": "täältä"
     }
   },  
   "en": {
@@ -131,14 +152,14 @@
     "search": {
       "list_of_months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
       "today": "today",
-      "newest": "newest ad",
-      "oldest": "oldest ad",
+      "newest": "newest first",
+      "oldest": "oldest first",
       "lowest_salary": "lowest salary request",
       "higest_salary": "higest salary request",
       "lowest_offer": "lowest offer",
       "higest_offer": "higest offer",
-      "lowest_price": "cheapest",
-      "higest_price": "priciest",
+      "lowest_price": "cheapest first",
+      "higest_price": "priciest first",
       "page": "page",
       "dataFetchErrorMessage": "Oops! Failed to request data from the server. If the problem persists, contact our support.",
       "no_results_msg": {
@@ -146,7 +167,9 @@
         "tips": "You can try to search from other regions or with different search words.."
       },
       "previous": "previous",
-      "next": "next"
+      "next": "next",
+      "show_as_list": "List view",
+      "show_as_cards": "Card view"
     },
     "error": {
       "metadata": {
@@ -162,7 +185,71 @@
       "jobseekers": "Job seekers",
       "publisher": "Published by",
       "description": "Description",
-      "send_message": "Send message"
+      "send_message": "Contact",
+      "email": "Email:",
+      "phonenumber": "Phone number:"
+    },
+    "login": {
+      "login_title": "Log in or register",
+      "login_description": "Log in to Hommatori or create a new account",
+      "email": "email",
+      "password": "password",
+      "server_error": "Error: couldn't connect to server",
+      "wrong_credentials": "Email or password incorrect!",
+      "no_account": "Don't have an account yet?",
+      "login": "Log in",
+      "register": "Create an account",
+      "email_hint":"Email must include @ and .",
+      "language_selector": "In Finnish"
+    },
+    "register": {
+
+    },
+    "account": {
+
+    },
+    "publish": {
+      "region": "Region:",
+      "choose_region": "-- Choose region --",
+      "municipality": "Municipality:",
+      "choose_municipality": "-- Choose municipality --",
+      "type": "Type of advertisement:",
+      "title": "Title:",
+      "description": "Advertisement:",
+      "postnumber": "Postal code:",
+      "price": "Price:",
+      "name": "Name:",
+      "email": "Email:",
+      "phonenumber": "Phone number:",
+      "type_and_location": "Type and location of job",
+      "info": "Advertisement information",
+      "contact_info": "Contact information",
+      "remove_photo": "Remove",
+      "next": "Next",
+      "edit": "Continue editing",
+      "publish": "Publish advertisement",
+      "jobseeker": "I seek for a job",
+      "joboffer": "I offer a job",
+      "one_image": "image",
+      "image": "Image:",
+      "images": "Images:",
+      "add_image": "Add image",
+      "optional_image": "NOTE! You can also publish without images (max size 5MB)",
+      "first_phase": "1) Add advertisement information",
+      "second_phase": "2) Check information and publish",
+      "valuehint_name": "This name will be displayed in the advertisement",
+      "valuehint_email": "Your email will be displayed in the advertisement",
+      "valuehint_phonenumber": "Your phone number will be displayed in the advertisement",
+      "region_alert": "Region cannot be empty",
+      "municipality_alert": "Municipality cannot be empty",
+      "location_alert": "Postal code must be 5 digits",
+      "header_alert": "Title is too short",
+      "description_alert": "Advertisement is too short",
+      "validate_data": "Make sure the advertisement information is correct",
+      "great": "Well done",
+      "is_published": "Your advertisement has been published",
+      "find_ad_here": "You can find your ad from",
+      "here": "here"
     }
   }
 }

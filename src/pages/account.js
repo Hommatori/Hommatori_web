@@ -1,103 +1,127 @@
 import Head from 'next/head'
 import styles from '../styles/account.module.css'
 import cookie from 'cookie'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import Loader from '@/components/loader'
 
 export const getServerSideProps = async ({ req, res }) => {
-  const cookies = cookie.parse(req.headers.cookie || '');
-  const accessToken = cookies['accessToken'];
-  const userCookie = cookies['userData'];
-  let userData = null;
-
-  console.log('accessToken:', accessToken);
-  console.log('userCookie:', userCookie);
+  const cookies = cookie.parse(req.headers.cookie || '')
+  const accessToken = cookies['accessToken']
+  const userCookie = cookies['userData']
+  let userData = null
+  let serverError = null
 
   if (!accessToken || !userCookie) {
-    console.log('Redirecting to /login (missing cookies)');
-    res.setHeader('location', '/login');
-    res.statusCode = 302;
-    res.end();
-    return { props: {} };
+    res.setHeader('location', '/login')
+    res.statusCode = 302
+    res.end()
+    return { props: {} }
   }
 
-  const cookieHeader = 'accessToken=' + accessToken;
-  const decodedUser = JSON.parse(decodeURIComponent(userCookie));
+  const cookieHeader = `accessToken=${accessToken}`
+  const decodedUser = JSON.parse(decodeURIComponent(userCookie))
   try {
-    const response = await fetch('http://localhost:8080/userr/getprivatedata/' + decodedUser.id, {
+    const response = await fetch(`${process.env.NODEJS_URL}/userr/getprivatedata/${decodedUser.id}`, {
       headers: {
         Cookie: cookieHeader,
         credentials: 'include'
       },
-    });
-
-    console.log('Private data response:', response);
+    })
 
     if (!response.ok) {
-      console.log('Redirecting to /login (response not ok)');
-      res.setHeader('location', '/login');
-      res.statusCode = 302;
-      res.end();
-      return { props: {} };
+      console.log(process.env.NEXTJS_URL)
+      fetch(`${process.env.NEXTJS_URL}/api/logout`, {
+        method: 'POST',
+      }).then(res => console.log(res.status))
+      res.setHeader('location', '/login')
+      res.statusCode = 302
+      res.end()
+      return { props: {} }
     }
-    userData = await response.json();
+    userData = await response.json()
+    
   } catch (err) {
-    console.error('Error fetching private data:', err);
+    // Server down or other server error
+    serverError = 'An unexpected server error occurrred - please try again later'
   }
 
   return {
-    props: { userData },
-  };
-};
+    props: { userData, serverError },
+  }
+}
 
-export default function Account({ translations, userData }) {
-    const router = useRouter()
+export default function Account({ translations, userData, serverError }) {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
 
-    useEffect(() => {
-         // Automatically scrolls to the top of the page, useful for mobile users
+  useEffect(() => {
     window.scrollTo(0, 0)
-      }, [])   
+  
+    const checkAuth = async () => {
+      try {
+        const res = await fetch('/api/check-cookie-status')
+        const data = await res.json()
 
-    function logout() {
-        fetch('/api/logout', {
-            method: 'POST',
-        })
-        .then( function(){
-            router.push('/')
-        })
+        if (serverError) {
+          setTimeout(() => {
+            alert(serverError)
+          }, 500)       
+        } else if (!data.authenticated || !userData) {
+          router.push('/login')
+        } else {
+          setIsLoading(false)
+        }
+      } catch (error) {}
     }
+    checkAuth()
+  }, [])
 
-    console.log(userData)
+  console.log(userData)
 
-    return (
-        <>
-            <Head>
-                <title>{translations.homepage.metadata.title}</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <meta property="og:site_name" content="Hommatori.fi" />
-                <meta property="og:title" content={""} />
-                <meta property="og:description" content={""} />
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content="http://www.hommatori.fi" />
-                <meta name="keywords" content={""} />
-                <meta name="description" content={""} />
-                <link rel="canonical" href="http://www.hommatori.fi/" />
-                <link rel="shortcut icon" href="hommatori_favicon.ico" />
-                <link rel="icon" href="hommatori_favicon.ico" />
-            </Head>
+  if (isLoading) {
+    return <Loader />
+  }  
 
-            <main>
-                <div>account</div>
-                { userData ?
-                <>
-                    <h1>Welcome, {userData.userid}!</h1>
-                    <p>Your email address is: {userData.email}</p>
-                    <button onClick={() => logout()}>log out</button>
-                </>
-                :
-                <div onLoad={window.location.reload()}>redirecting...</div>
-                }
-            </main>
-        </>
-    )
+  async function logout() {
+    try {
+      const res = await fetch('/api/logout')
+      if (res.ok) {
+        router.push('/')
+      } else {
+        alert('Failed to log out!');
+      }
+    } catch (error) {}
+  }
+
+  //.log(userData)
+
+  return (
+    <>
+      <Head>
+          <title>{translations.homepage.metadata.title}</title>
+          <meta name='viewport' content='width=device-width, initial-scale=1' />
+          <meta property='og:site_name' content='Hommatori.fi' />
+          <meta property='og:title' content={''} />
+          <meta property='og:description' content={''} />
+          <meta property='og:type' content='website' />
+          <meta property='og:url' content='http://www.hommatori.fi' />
+          <meta name='keywords' content={''} />
+          <meta name='description' content={''} />
+          <link rel='canonical' href='http://www.hommatori.fi/' />
+          <link rel='shortcut icon' href='hommatori_favicon.ico' />
+          <link rel='icon' href='hommatori_favicon.ico' />
+      </Head>
+
+      <main> {
+        userData ?
+        <><div>account</div>
+          
+          <h1>Welcome, {userData.userid}!</h1>
+          <p>Your email address is: {userData.email}</p>
+          <button onClick={() => logout()}>log out</button>
+        </> : <div onLoad={router.push('/')} />
+      } </main>
+    </>
+  )
 }
