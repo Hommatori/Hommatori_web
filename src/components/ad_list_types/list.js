@@ -32,8 +32,8 @@ export default function List({ data, translations }) {
         if (image) {
             try {
                 const imageArray = JSON.parse(image)
-                if (Array.isArray(imageArray)) {               
-                imageToDisplay = imageArray[0]
+                if (Array.isArray(imageArray)) {
+                    imageToDisplay = imageArray[0]          
                 }
             } catch {
                 imageToDisplay = image.replace(/['"\r\n]+/g, '')
@@ -49,7 +49,7 @@ export default function List({ data, translations }) {
                         key={item.adid}
                         href={`/ad/${item.adid}/${item.header}`}>
                 {
-                    item.image != null && item.image.length != 0 ?
+                    item.image != null && JSON.parse(item.image).length != 0 ?
                     <div className={styles.singleAdImageWrapper}>
                         <Image
                             src={getSingleImage(item.image)}

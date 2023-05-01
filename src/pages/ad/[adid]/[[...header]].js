@@ -7,7 +7,7 @@ import styles from '../../../styles/ad.module.css'
 import Link from 'next/link'
 
 export async function getServerSideProps(context) {
-    var address = process.env.ADDRESS || 'http://localhost:8080';
+    var address = process.env.NODEJS_URL
     let errorMsg = false
     const adid = context.query.adid
     let dbResponse = {}
@@ -53,9 +53,13 @@ export default function Ad({ translations, dbResponse, dbPublisher, errorMsg }) 
         if (dbResponse.image) {
             try {
                 const imageArray = JSON.parse(dbResponse.image)
-                if (Array.isArray(imageArray)) {               
-                    imageToDisplay = imageArray[0]
-                    setImageIsArray(true)
+                if (Array.isArray(imageArray)) {
+                    if(imageArray.length < 2){   
+                        imageToDisplay = imageArray[0]                        
+                    } else {  
+                        imageToDisplay = imageArray[0]
+                        setImageIsArray(true)
+                    }
                 }
             } catch {
                 imageToDisplay = dbResponse.image.replace(/['"\r\n]+/g, '')
@@ -66,8 +70,6 @@ export default function Ad({ translations, dbResponse, dbPublisher, errorMsg }) 
     const [selectableImageWidth, setSelectableImageWidth] = useState(70) // set initial width to 500
     const [selectableImageHeight, setSelectableImageHeight] = useState(55) // set initial height to 500
     const [displayContactInfo, setDisplayContactInfo] = useState(false)
-
-    console.log(imageToDisplay)
 
     useEffect(() => { // handle selectableImage static width and height change
         const handleResize = () => {
@@ -88,7 +90,7 @@ export default function Ad({ translations, dbResponse, dbPublisher, errorMsg }) 
         return () => {
           window.removeEventListener('resize', handleResize)
         }
-      }, [])
+    }, [])
 
     return (
         <>  { Object.keys(dbResponse).length !== 0 ? <>
@@ -123,7 +125,7 @@ export default function Ad({ translations, dbResponse, dbPublisher, errorMsg }) 
                 <h1 className={styles.header}>{dbResponse.header}</h1>
                 <div className={styles.adWrapper}>
                     <div className={styles.adWrapperLeft}>
-                        { dbResponse.image ?
+                        { dbResponse.image && imageToDisplay ?
                             <div className={styles.imagesWrapper}>
                                 <div className={styles.imageWrapper}>
                                     <Image

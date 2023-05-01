@@ -1,5 +1,5 @@
 export default async function login(req, res) {
-    const response = await fetch('http://localhost:8080/login', {
+    const response = await fetch(process.env.NODEJS_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
