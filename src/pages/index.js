@@ -18,21 +18,27 @@ export default function Home({ translations }) {
         router.push(`/search?type=${ad_type}&reg=${region}&q=${input}&p=1`)    
     }
 
+    function handleSubmitByEnter(e) {    
+        if (e.key === 'Enter') {
+          Submit()
+        }
+    }
+
     return (
         <div>
             <Head>
             <title>{translations.homepage.metadata.title}</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <meta property="og:site_name" content="Hommatori.fi" />
-            <meta property="og:title" content={translations.homepage.metadata.title} />
-            <meta property="og:description" content={translations.homepage.metadata.description} />
-            <meta property="og:type" content="website" />
-            <meta property="og:url" content="http://www.hommatori.fi" />
-            <meta name="keywords" content={translations.homepage.metadata.keywords} />
-            <meta name="description" content={translations.homepage.metadata.description} />
-            <link rel="canonical" href="http://www.hommatori.fi/" />
-            <link rel="shortcut icon" href="hommatori_favicon.ico" />
-            <link rel="icon" href="hommatori_favicon.ico" />
+            <meta name='viewport' content='width=device-width, initial-scale=1' />
+            <meta property='og:site_name' content='Hommatori.fi' />
+            <meta property='og:title' content={translations.homepage.metadata.title} />
+            <meta property='og:description' content={translations.homepage.metadata.description} />
+            <meta property='og:type' content='website' />
+            <meta property='og:url' content='http://www.hommatori.fi' />
+            <meta name='keywords' content={translations.homepage.metadata.keywords} />
+            <meta name='description' content={translations.homepage.metadata.description} />
+            <link rel='canonical' href='http://www.hommatori.fi/' />
+            <link rel='shortcut icon' href='hommatori_favicon.ico' />
+            <link rel='icon' href='hommatori_favicon.ico' />
             </Head>
 
             <main className={styles.index}>
@@ -40,7 +46,7 @@ export default function Home({ translations }) {
                     <Image
                         className={styles.background_img}
                         src={background_img}
-                        alt=""
+                        alt=''
                         priority={true}
                     />
                 </div>
@@ -51,7 +57,13 @@ export default function Home({ translations }) {
                         <h3>{translations.homepage.work_awaits_description}</h3>
                         <div className={styles.searchbox_form}>
                             <div className={styles.searchbox_input}>
-                                <input className={styles.searchbox_input_field} id='input' type="text" placeholder={translations.homepage.work_awaits_searchbox} autoComplete="off"/>
+                                <input
+                                    onKeyUp={(e) => handleSubmitByEnter(e)}
+                                    className={styles.searchbox_input_field}
+                                    id='input'
+                                    type='text'
+                                    placeholder={translations.homepage.work_awaits_searchbox}
+                                    autoComplete='off'/>
                                 <p onClick={() => Submit()} className={styles.searchbox_input_submit_btn}>{translations.homepage.get_started}</p>
                             </div>
                             <div className={styles.selections_container}>
@@ -76,10 +88,10 @@ export default function Home({ translations }) {
                         <p className={styles.publish_ad_title}>{translations.homepage.searchbox_publish}</p>
                         <div className={styles.publish_ad_options}>
                             <div className={styles.publish_ad_option}>
-                                <Link href="/form" className={styles.publishLink}>{translations.homepage.publish_as_jobseeker}</Link>
+                                <Link href='/form' className={styles.publishLink}>{translations.homepage.publish_as_jobseeker}</Link>
                             </div>
                             <div className={styles.publish_ad_option}>
-                                <Link href="/form" className={styles.publishLink}>{translations.homepage.publish_as_employer}</Link>
+                                <Link href='/form' className={styles.publishLink}>{translations.homepage.publish_as_employer}</Link>
                             </div>
                         </div>
                     </div>

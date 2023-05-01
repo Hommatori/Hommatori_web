@@ -64,6 +64,8 @@
 }
 
 .adWrapperLeft {
+    max-width: 850px;
+    word-wrap: break-word;
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -96,7 +98,7 @@
     padding: 15px;    
     background-color: rgb(251, 251, 251);
     box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 3px;
-    height: 135px;
+    height: fit-content;
 }
 
 .sendMessageBtn {
@@ -107,7 +109,7 @@
     height: 40px;
     width: 100%;
     background-color: #25db55;
-    border-radius: 0.3rem;;
+    border-radius: 0.3rem;
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 3px;
 }
@@ -115,6 +117,12 @@
 .sendMessageBtn:hover {
     background-color: black;
     color: white;
+}
+
+.contact_info_title {
+    color: #25db55;
+    font-size: smaller;
+    letter-spacing: 1px;
 }
 
 .imagesWrapper {
@@ -259,6 +267,7 @@
     }
 
     .header {
+        word-wrap: break-word;
         font-size: large;
         padding-left: 15px;
         padding-right: 15px;
@@ -274,6 +283,7 @@
     }
 
     .description, .locationTag {
+        word-wrap: break-word;
         font-size: small;
     }
 

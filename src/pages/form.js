@@ -1,182 +1,233 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import cookie from 'cookie'
-import AdForm from '../components/form_components/ad-details.js'
+import AdDetails from '../components/form_components/ad-details.js'
 import AdConfirmation from '../components/form_components/ad-confirmation.js'
+import AdSuccess from '../components/form_components/ad-success.js'
 import styles from '../styles/form.module.css'
+import Loader from '@/components/loader.js'
+import api from '../../api.json'
+import Modal from '../components/modal.js'
 
 export const getServerSideProps = async ({ req, res }) => {
   const cookies = cookie.parse(req.headers.cookie || '')
   const accessToken = cookies['accessToken']
   const userCookie = cookies['userData']
   let userData = null
-  let shouldRedirect = false
+  let serverError = null
 
   if (!accessToken || !userCookie) {
     res.setHeader('location', '/login')
     res.statusCode = 302
     res.end()
-    shouldRedirect = true
     return { props: {} }
   }
 
-  const cookieHeader = 'accessToken=' + accessToken
+  const cookieHeader = `accessToken=${accessToken}`
   const decodedUser = JSON.parse(decodeURIComponent(userCookie))
   try {
-    const response = await fetch('http://localhost:8080/userr/getprivatedata/' + decodedUser.id, {
+    const response = await fetch(`${process.env.NODEJS_URL}/userr/getprivatedata/${decodedUser.id}`, {
       headers: {
         Cookie: cookieHeader,
         credentials: 'include'
       },
     })
     if (!response.ok) {
+      fetch(`${process.env.NEXTJS_URL}/api/logout`, {
+        method: 'POST',
+      })
       res.setHeader('location', '/login')
       res.statusCode = 302
       res.end()
-      shouldRedirect = true
-      return { props: {} }      
+      return { props: {} }
     }
     userData = await response.json()
-  } catch (err) {}
+    
+  } catch (err) {
+    // Server down or other server error
+    serverError = 'Could not connect to the server - please try again later'
+  }
 
   return {
-    props: { userData, shouldRedirect },
+    props: { userData, serverError },
   }
 }
 
-export default function Form({ translations, userData, shouldRedirect }) {
+export default function Form({ translations, userData, serverError }) {
   const router = useRouter()
   const [userDataFromParams, setUserDataFromnParams] = useState(userData)
   const [step, setStep] = useState(1)
-  const [type, setType] = useState('')
+  const [type, setType] = useState('joboffer')
   const [header, setHeader] = useState('')
   const [description, setDescription] = useState('')
-  const [location, setLocation] = useState(0)
+  const [location, setLocation] = useState('')
   const [price, setPrice] = useState(0)
   const [region, setRegion] = useState('')
   const [municipality, setMunicipality] = useState('')
-  const [image, setImage] = useState(null)
+  const [images, setImages] = useState([null, null, null])
+  const [isLoading, setIsLoading] = useState(true)
+  const [showErrorModal, setShowErrorModal] = useState(false)
+  const [errorModalMessage, setErrorModalMessage] = useState('')
+  const [new_ad_ID, set_new_ad_ID] = useState(null)
 
   useEffect(() => {
-    const requiredCookies = ['accessToken', 'userData']
-    const cookies = document.cookie.split('; ').reduce((acc, c) => {
-      const [key, value] = c.split('=')
-      acc[key] = value
-      return acc
-    }, {})
-    const hasCookies = requiredCookies.every((cookieName) =>
-      cookies.hasOwnProperty(cookieName)
-    )
-    if (!hasCookies) {
-      router.push('/login')
-      return
-    } else {
-      // Automatically scrolls to the top of the page, useful for mobile users
-      window.scrollTo(0, 0)
+    window.scrollTo(0, 0)
+  
+    const checkAuth = async () => {
+      try {
+        const res = await fetch('/api/check-cookie-status')
+        const data = await res.json()
+
+        if (serverError) {
+          setErrorModalMessage(serverError)
+          setShowErrorModal(true)     
+        } else if (!data.authenticated || !userData) {
+          router.push('/login')
+        } else {
+          setShowErrorModal(false)  
+          setIsLoading(false)
+        }
+      } catch (error) {}
     }
+    checkAuth()
   }, [])
-
-  const prevStep = (e) => {
-    e.preventDefault()
-    setStep(1)
-  }
-
-  const nextStep = (e) => {
-    e.preventDefault()
-    setStep(2)
-  }
 
   const handleChange = (setter) => (e) => {
     setter(e.target.value)
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-  
-    const requiredCookies = ['user', 'session']
-    const cookies = document.cookie.split('; ').reduce((acc, c) => {
-      const [key, value] = c.split('=')
-      acc[key] = value
-      return acc
-    }, {})
-  
-    const hasCookies = requiredCookies.every((cookieName) => cookies.hasOwnProperty(cookieName))
-    if (!hasCookies || !userDataFromParams) {
-      router.push('/login')
-    } else {
-      // Prepare form data
-      const formData = new FormData()
-      formData.append('type', type)
-      formData.append('header', header)
-      formData.append('description', description)
-      formData.append('location', location)
-      formData.append('price', price)
-      formData.append('userid', userDataFromParams.userid)
-      formData.append('region', region)
-      formData.append('municipality', municipality)
-      if (image) {
-        formData.append('image', image)
-      }
-  
+  function handleSubmit() {
+    const checkAuthAndPublish = async () => {
       try {
-        // Replace the URL with your API endpoint
-        const response = await fetch('http://localhost:8080/ad', {
-          method: 'POST',
-          body: formData,
-          headers: {
-            Cookie: 'user=' + cookies.user + '; session=' + cookies.session,
-          },
-        })
-  
-        if (!response.ok) {
-          throw new Error('HTTP error! Status: ' + response.status)
+        const res = await fetch('/api/return-token')
+        const data = await res.json()
+        
+        if (!data.authenticated) {
+          router.push('/login')
+        } else {
+          let token = data.token
+          // Prepare form data
+          const formData = new FormData()
+          formData.append('type', type)
+          formData.append('header', header)
+          formData.append('description', description)
+          formData.append('location', location)
+          let newPrice = price;
+          if (newPrice !== '' && newPrice[0] === '0' && newPrice.length > 1) {
+            // Remove leading zero from price value if there are multiple digits
+            newPrice = newPrice.toString().replace(/^0+/, '')
+          }
+          newPrice = newPrice === '' ? '' : Math.min(newPrice, 99999999)
+          formData.append('price', newPrice)
+          formData.append('region', region)
+          formData.append('municipality', municipality)
+          formData.append('userid', userDataFromParams.userid)
+          
+          images.forEach((image, index) => {
+            if (image) {
+              formData.append(`image${index + 1}`, image)
+            }
+          })
+
+          try {
+            const response = await fetch(`${api}/ad`, {
+              method: 'POST',
+              body: formData,
+              headers: {
+                credentials: 'include',
+                'Authorization': `Bearer ${token}`
+              },
+            })            
+      
+            if (!response.ok) {           
+              const resData = await response.json()   
+              setErrorModalMessage(resData.message)
+              setShowErrorModal(true)
+            } else {
+              const resData = await response.json()
+              set_new_ad_ID(resData.adid)
+              setStep(3)
+            }            
+          } catch (error) {
+            setErrorModalMessage('Error: Failed to connect to the server')
+            setShowErrorModal(true)
+          }
         }
-  
-        const data = await response.json()
-        console.log(data)
-        console.log('successfully added new ad')
-  
-        // Handle success (e.g., show a success message, navigate to another page)
       } catch (error) {
-        console.error('Error submitting form data:', error)
-  
-        // Handle error (e.g., show an error message)
+        setErrorModalMessage('Error: Failed to connect to the server')
+        setShowErrorModal(true)
       }
     }
+    checkAuthAndPublish()
   }
 
-  const values = { type, header, description, location, price, region, municipality, image }
+  const values = { type, header, description, location, price, region, municipality, images }
 
   return (
     <main className={styles.main}>
-      { !shouldRedirect ?
-      <>
-      <h3>{translations.publish.publish}</h3>
-      <div>{step == 1 ? translations.publish.first_phase : translations.publish.second_phase}</div>
-      { step == 1 ?
-        <AdForm
-          nextStep={nextStep}
-          handleChange={handleChange}
-          values={values}
-          userData={userDataFromParams}
-          setType={setType}
-          setRegion={setRegion}
-          setMunicipality={setMunicipality}
-          setHeader={setHeader}
-          setDescription={setDescription}
-          setPrice={setPrice}
-          setImage={setImage}
-          translations={translations} />
-        :
-        <AdConfirmation
-          prevStep={prevStep}
-          values={values} 
-          submit={handleSubmit}
-          translations={translations} />
-      }
-      </>
-      : <div onLoad={window.location.reload()}>Redirecting...</div>
-    }
+      { userData ? ( <>
+        { step !== 3 && (
+          <>
+            <h3>{translations.publish.publish}</h3>
+            <div className={styles.phase_breadcrumbs}>
+              <p
+                className={`${styles.phase_left} ${
+                  step === 1 ? styles.phase_active : styles.phase_inactive
+                }`}
+              >
+                {translations.publish.first_phase}
+              </p>
+              <p
+                className={`${styles.phase_right} ${
+                  step === 2 ? styles.phase_active : styles.phase_inactive
+                }`}
+              >
+                {translations.publish.second_phase}
+              </p>
+            </div>
+          </>
+        )}
+        { step === 1 ? (
+          <AdDetails
+            nextStep={() => setStep(2)}
+            handleChange={handleChange}
+            values={values}
+            userData={userDataFromParams}
+            setType={setType}
+            setRegion={setRegion}
+            setMunicipality={setMunicipality}
+            setLocation={setLocation}
+            setHeader={setHeader}
+            setDescription={setDescription}
+            setPrice={setPrice}
+            setImages={setImages}
+            translations={translations}
+          />
+        ) : step === 2 ? (
+          <AdConfirmation
+            prevStep={() => setStep(1)}
+            values={values}
+            submit={handleSubmit}
+            translations={translations}
+            userData={userDataFromParams}
+          />
+        ) : (
+          <AdSuccess translations={translations} adid={new_ad_ID} fname={userData.fname} />
+        )} </>
+      ) : isLoading ? ( <Loader /> ) : ( <Loader /> )}
+
+      {/* Informative modal will be shown in case of server request error */}
+      {showErrorModal ? (
+        <Modal
+          message={errorModalMessage}
+          closeModal={() => {
+            setShowErrorModal(false);
+            setErrorModalMessage('');
+          }}
+        />
+      ) : (
+        <></>
+      )}
     </main>
   )
 }

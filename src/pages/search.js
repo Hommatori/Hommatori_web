@@ -42,7 +42,7 @@ export async function getServerSideProps(context) {
     }        
    // } ---> THIS IS PART OF THE UPPER COMMENTARY
     return { props: { query, region, type, page, dbResponse, errorMsg, maxResultsToDisplay } }
-  }
+}
 
 // this is the search results page that user sees after performing a search. It receives page language translations as props
 export default function Search({ query, region, translations, type, page, dbResponse, errorMsg, maxResultsToDisplay }) {
@@ -85,21 +85,27 @@ export default function Search({ query, region, translations, type, page, dbResp
         router.push(`/search?type=${ad_type}&reg=${region}&ord=${filter_select}&q=${input}&p=1`)  
     }
 
+    function handleSubmitByEnter(e) {    
+        if (e.key === 'Enter') {
+          Submit()
+        }
+    }
+
     return (
         <>
             <Head>
                 <title>{translations.homepage.metadata.title}</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <meta property="og:site_name" content="Hommatori.fi" />
-                <meta property="og:title" content={query} />
-                <meta property="og:description" content={region + ' ' + query} />
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content="http://www.hommatori.fi" />
-                <meta name="keywords" content={query + ', ' + region} />
-                <meta name="description" content={region + ' ' + query} />
-                <link rel="canonical" href="http://www.hommatori.fi/" />
-                <link rel="shortcut icon" href="hommatori_favicon.ico" />
-                <link rel="icon" href="hommatori_favicon.ico" />
+                <meta name='viewport' content='width=device-width, initial-scale=1' />
+                <meta property='og:site_name' content='Hommatori.fi' />
+                <meta property='og:title' content={query} />
+                <meta property='og:description' content={region + ' ' + query} />
+                <meta property='og:type' content='website' />
+                <meta property='og:url' content='http://www.hommatori.fi' />
+                <meta name='keywords' content={query + ', ' + region} />
+                <meta name='description' content={region + ' ' + query} />
+                <link rel='canonical' href='http://www.hommatori.fi/' />
+                <link rel='shortcut icon' href='hommatori_favicon.ico' />
+                <link rel='icon' href='hommatori_favicon.ico' />
             </Head>
 
             <main className={styles.main}>
@@ -107,11 +113,12 @@ export default function Search({ query, region, translations, type, page, dbResp
                     <div className={styles.selections_container_top}>
                         <div className={styles.searchbox_input}>
                             <input
+                                onKeyUp={(e) => handleSubmitByEnter(e)}
                                 className={styles.searchbox_input_field}
                                 id='input'
-                                type="text"
+                                type='text'
                                 placeholder={translations.homepage.work_awaits_searchbox}                                
-                                autoComplete="off"
+                                autoComplete='off'
                             />
                             <p onClick={() => Submit()} className={styles.searchbox_input_submit_btn}>{translations.homepage.get_started}</p>
                         </div>                    
@@ -119,18 +126,18 @@ export default function Search({ query, region, translations, type, page, dbResp
                             <option value={'all'}>{translations.homepage.region_entire_finland}</option>
                             {
                                 Object.keys(regions).map((item, index) => {
-                                    return <option key={index} value={item} selected={region == item ? "selected" : null}>{item}</option>
+                                    return <option key={index} value={item} selected={region == item ? 'selected' : null}>{item}</option>
                                 })  
                             }
                         </select>                       
                     </div>
                     <div className={styles.selections_container_bottom}>
                             <label className={styles.checkboxContainer}>{translations.homepage.ad_type_offers}
-                                <input type="checkbox" id="ad_type_joboffer" defaultChecked={type == null || type == 'all' || type == 'joboffer'}/>
+                                <input type='checkbox' id='ad_type_joboffer' defaultChecked={type == null || type == 'all' || type == 'joboffer'}/>
                                 <span className={styles.checkmark}></span>
                             </label>
                             <label className={styles.checkboxContainer}>{translations.homepage.ad_type_seekers}
-                                <input type="checkbox" id="ad_type_jobseeker" defaultChecked={type == null | type == 'all' || type == 'jobseeker'}/>
+                                <input type='checkbox' id='ad_type_jobseeker' defaultChecked={type == null | type == 'all' || type == 'jobseeker'}/>
                                 <span className={styles.checkmark}></span>
                             </label>
                         </div>
@@ -159,37 +166,37 @@ export default function Search({ query, region, translations, type, page, dbResp
                     </p>
                     { screenWidth > 600 ?
                         <div className={styles.filter_display_wrapper}>
-                            <div className={styles.filter_displayBtnLeft} onClick={() => setListStyle('list')} >
+                            <div className={styles.filter_displayBtnLeft} onClick={() => setListStyle('list')} title={translations.search.show_as_list}>
                                 {
                                     listStyle === 'list' ? 
                                     <Image
                                         src={list_svg}
-                                        alt="list"
+                                        alt='list'
                                         fill
                                         style={{ objectFit: 'cover' }}                                 
                                     />
                                     :
                                     <Image
                                         src={list_white_svg}
-                                        alt="list"
+                                        alt='list'
                                         fill
                                         style={{ objectFit: 'cover' }}                                 
                                     />
                                 }                            
                             </div>
-                            <div className={styles.filter_displayBtnRight} onClick={() => setListStyle('card')} >                            
+                            <div className={styles.filter_displayBtnRight} onClick={() => setListStyle('card')} title={translations.search.show_as_cards}>                            
                                 {
                                     listStyle !== 'list' ? 
                                     <Image
                                         src={card_svg}
-                                        alt="card"
+                                        alt='card'
                                         fill
                                         style={{ objectFit: 'cover' }}                                 
                                     />
                                     :
                                     <Image
                                         src={card_white_svg}
-                                        alt="card"
+                                        alt='card'
                                         fill
                                         style={{ objectFit: 'cover' }}                                 
                                     />

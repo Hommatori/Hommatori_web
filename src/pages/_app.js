@@ -5,12 +5,12 @@ import translations from '../json/translations'
 
 // the _app.js file is not a page itself, but the root of all components which can serve props to the current page (any page will include this component)
 export default function App({ Component, pageProps, router }) {
-  const { locale } = router // gets the current locale (read: page language, can either be "fi" or "en") so it can be used to change page language translations
+  const { locale } = router // gets the current locale (read: page language, can either be 'fi' or 'en') so it can be used to change page language translations
 
   return(    
     <div className={styles._app}> 
       { router.pathname != '/login' && <Navbar locale={locale} translations={translations[locale].navbar} /> }
-      <Component {...pageProps } translations={translations[locale]}/>
+      <Component {...pageProps } translations={translations[locale]} locale={locale} />
       { router.pathname != '/login' && <Footer translations={translations[locale].footer} /> }      
     </div>
   )

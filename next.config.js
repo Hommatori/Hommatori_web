@@ -27,13 +27,12 @@ const nextConfig = {
     ]
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**raw.githubusercontent.com**',
-      },
+    domains: [
+      'raw.githubusercontent.com',
+      'hommatorisuomi.blob.core.windows.net',
+      'images.blob.core.windows.net'
     ],
-  }
+  },
 }
 
 module.exports = nextConfig

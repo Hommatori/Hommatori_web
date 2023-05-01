@@ -11,9 +11,12 @@
   "dependencies": {
     "cookie": "^0.5.0",
     "cookies": "^0.8.0",
-    "crypto-js": "^4.1.1",
+    "formidable": "^2.1.1",
+    "isomorphic-fetch": "^3.0.0",
+    "isomorphic-form-data": "^2.0.0",
     "jsonwebtoken": "^9.0.0",
     "next": "^13.3.0",
+    "node-fetch": "^3.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   }

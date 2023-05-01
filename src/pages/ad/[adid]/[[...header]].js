@@ -10,7 +10,6 @@ export async function getServerSideProps(context) {
     var address = process.env.ADDRESS || 'http://localhost:8080';
     let errorMsg = false
     const adid = context.query.adid
-    console.log(adid)
     let dbResponse = {}
     let dbPublisher = {}
 
@@ -66,6 +65,9 @@ export default function Ad({ translations, dbResponse, dbPublisher, errorMsg }) 
     })
     const [selectableImageWidth, setSelectableImageWidth] = useState(70) // set initial width to 500
     const [selectableImageHeight, setSelectableImageHeight] = useState(55) // set initial height to 500
+    const [displayContactInfo, setDisplayContactInfo] = useState(false)
+
+    console.log(imageToDisplay)
 
     useEffect(() => { // handle selectableImage static width and height change
         const handleResize = () => {
@@ -92,23 +94,23 @@ export default function Ad({ translations, dbResponse, dbPublisher, errorMsg }) 
         <>  { Object.keys(dbResponse).length !== 0 ? <>
             <Head>
                 <title>{translations.homepage.metadata.title}</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <meta property="og:site_name" content="Hommatori.fi" />
-                <meta property="og:title" content={dbResponse.header} />
-                <meta property="og:description" content={dbResponse.region+' '+dbResponse.municipality+' '+dbResponse.description} />
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content="http://www.hommatori.fi" />
-                <meta name="keywords" content={dbResponse.region+' '+dbResponse.municipality+' '+dbResponse.description} />
-                <meta name="description" content={dbResponse.region+' '+dbResponse.municipality+' '+dbResponse.description} />
-                <link rel="canonical" href="http://www.hommatori.fi/" />
-                <link rel="shortcut icon" href="hommatori_favicon.ico" />
-                <link rel="icon" href="hommatori_favicon.ico" />
+                <meta name='viewport' content='width=device-width, initial-scale=1' />
+                <meta property='og:site_name' content='Hommatori.fi' />
+                <meta property='og:title' content={dbResponse.header} />
+                <meta property='og:description' content={dbResponse.region+' '+dbResponse.municipality+' '+dbResponse.description} />
+                <meta property='og:type' content='website' />
+                <meta property='og:url' content='http://www.hommatori.fi' />
+                <meta name='keywords' content={dbResponse.region+' '+dbResponse.municipality+' '+dbResponse.description} />
+                <meta name='description' content={dbResponse.region+' '+dbResponse.municipality+' '+dbResponse.description} />
+                <link rel='canonical' href='http://www.hommatori.fi/' />
+                <link rel='shortcut icon' href='hommatori_favicon.ico' />
+                <link rel='icon' href='hommatori_favicon.ico' />
             </Head>
 
             <main className={styles.main}>
                 <div className={styles.adBanner}></div>
                 <div className={styles.breadcrumbs}>
-                    <Link className={styles.breadcrumbLink1} href="/">{translations.ad.mainpage}</Link>
+                    <Link className={styles.breadcrumbLink1} href='/'>{translations.ad.mainpage}</Link>
                     <span className={styles.divider}> /</span>
                     <Link className={styles.breadcrumbLink2} href={`/search?reg=${dbResponse.region}`}>{dbResponse.region}</Link>
                     <span className={styles.divider}> /</span>
@@ -127,7 +129,8 @@ export default function Ad({ translations, dbResponse, dbPublisher, errorMsg }) 
                                     <Image
                                         src={imageToDisplay}
                                         fill
-                                        style={{ objectFit: 'contain' }}                        
+                                        style={{ objectFit: 'contain' }}   
+                                        alt={dbResponse.header}                    
                                     />
                                 </div> {
                                     imageIsArray ?
@@ -142,6 +145,7 @@ export default function Ad({ translations, dbResponse, dbPublisher, errorMsg }) 
                                                     width={selectableImageWidth}
                                                     style={{ objectFit: 'cover' }} 
                                                     onClick={() => setImageToDisplay(itm)}
+                                                    alt={index + 1}
                                                 />
                                             })                                        
                                         }                                    
@@ -161,10 +165,21 @@ export default function Ad({ translations, dbResponse, dbPublisher, errorMsg }) 
                             <p>{translations.ad.publisher}</p>
                         </div>
                         <div className={styles.adWrapperRightBottom}>
-                            <b>{dbPublisher.username}</b><br/><br/>
+                            <b>{dbPublisher.fname} {dbPublisher.lname}</b><br/><br/>
                             <p>{dbResponse.location ? dbResponse.location +  ', ' : null}{dbResponse.municipality}</p>
                             <p>{dbResponse.region}</p><br/>
-                            <div className={styles.sendMessageBtn}>{translations.ad.send_message}</div>
+                            {
+                                !displayContactInfo ?
+                                <div className={styles.sendMessageBtn} onClick={() => setDisplayContactInfo(true)}>{translations.ad.send_message}</div>
+                                :
+                                <div>
+                                    <p className={styles.contact_info_title}>{translations.ad.email}</p>
+                                    <p>{dbPublisher.email}</p>
+                                    <br/>
+                                    <p className={styles.contact_info_title}>{translations.ad.phonenumber}</p>
+                                    <p>{dbPublisher.phonenumber}</p>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>              

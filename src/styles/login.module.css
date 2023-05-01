@@ -1,3 +1,13 @@
+.language_selector {
+    align-self: flex-end;
+}
+
+.lang_selector_link, .lang_selector_link:visited {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 @media screen and (min-width: 500px){
     .main {
         display: flex;
@@ -25,6 +35,30 @@
         height: 40px;
         width: 200px;
         margin-bottom: 20px;
+        margin-top: -24px;
+    }
+
+    .logoContainer {
+        align-self: center;
+        position: relative;
+        height: 40px;
+        width: 200px;
+        margin-bottom: 20px;
+        margin-top: -24px;
+        transition: all .1s ease;
+    }
+
+    .logoContainer:hover {
+        transform: scale(0.96);
+    }
+
+    .logoContainer {
+        align-self: center;
+        position: relative;
+        height: 40px;
+        width: 200px;
+        margin-bottom: 20px;
+        margin-top: -24px;
     }
     
     .loginTitle {
@@ -53,7 +87,7 @@
         padding-left: 5px;
         border: 1px solid lightgrey;
         border-radius: 0.3rem;
-        font-size: medium;
+        font-size: 0.9rem;
     }
     
     .loginEmail:hover {
@@ -64,7 +98,7 @@
         outline: none !important;
         border: 1px solid #25db55;
         background-color: #f2fff5;
-        font-size: small;
+        font-size: medium;
     }
     
     .loginPassword {
@@ -73,7 +107,7 @@
         margin-top: 25px;
         border: 1px solid lightgrey;
         border-radius: 0.3rem;
-        font-size: medium;
+        font-size: 0.9rem;
     }
     
     .loginPassword:hover {
@@ -84,7 +118,7 @@
         outline: none !important;
         border: 1px solid #25db55;
         background-color: #f2fff5;
-        font-size: small;
+        font-size: medium;
     }
     
     .loginSubmit {
@@ -167,6 +201,12 @@
         height: 40px;
         width: 400px;
         margin-bottom: 30px;
+        margin-top: -24px;
+        transition: all .1s ease;
+    }
+
+    .logoContainer:hover {
+        transform: scale(0.96);
     }
     
     .loginTitle {

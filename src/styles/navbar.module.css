@@ -41,6 +41,7 @@
     justify-content: space-around;
     align-items: center;
     gap: 30px;
+    opacity: 1;
 }
 
 .announce_btn {    
@@ -97,22 +98,22 @@
     display: none;
 }
 
+
 .account_btn {
     display: flex;
     cursor: pointer;
     color: white;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
     padding-left: 5px;
     padding-right: 5px;
-    background-color: black;  
+    background-color: black;
     height: 32px;
+    gap: 6px;
     text-align: center;
     font-weight: bold;
-    border-style: solid;
-    border-color: black;
+    border: 3px solid black;
     border-radius: 0.4rem;
-    border-width: 3px;
     text-decoration: none;
     box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 3px;
     transition: all .2s ease;
@@ -127,6 +128,7 @@
     position: relative;
     height: 30px;
     width: 30px;
+    overflow: hidden;
 }
 
 .account_btn_img_white,
@@ -137,19 +139,19 @@
     height: 100%;
     width: 100%;
     object-fit: contain;
-    transition: opacity 0.2s ease;
+    transition: transform 0.2s ease;
 }
 
 .account_btn_img_black {
-    opacity: 0;
+    transform: translateY(-100%);
 }
 
 .account_btn:hover .account_btn_img_white {
-    opacity: 0;
+    transform: translateY(100%);
 }
 
 .account_btn:hover .account_btn_img_black {
-    opacity: 1;
+    transform: translateY(0);
 }
 
 .account_btn_mobile {
@@ -205,9 +207,14 @@
     
     .log_in_btn {
         display: none;
-    }  
+    }
+
+    .placeholder_btn {
+        display: none;
+    }
 
     .account_btn {
+        display: none;
         color: black;
         gap: 2px;
         background-color: transparent;  
@@ -222,7 +229,15 @@
         align-items: center;
     }
 
-    .account_btn:hover {
+    .account_btn_mobile {
+        height: 26px;
+        width: 26px;
+        position: relative;
+        display: block;
+        text-decoration: none;
+    }
+
+    .account_btn_mobile:hover {
         transform: scale(1.1);
     }
     
