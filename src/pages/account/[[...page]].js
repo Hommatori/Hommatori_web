@@ -4,6 +4,7 @@ import cookie from 'cookie'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Loader from '@/components/loader'
+import Link from 'next/link'
 
 export async function getServerSideProps(context) {
   const { req, res } = context
@@ -13,7 +14,12 @@ export async function getServerSideProps(context) {
   let userData = null
   let serverError = null
   const pageToShow = context.query.page
-  console.log(pageToShow)
+  if (pageToShow != 'myads' && pageToShow != 'profile') {
+    res.setHeader('location', '/account/profile')
+    res.statusCode = 302
+    res.end()
+    return { props: {} }
+  }
 
   if (!accessToken || !userCookie) {
     res.setHeader('location', '/login')
@@ -111,13 +117,18 @@ export default function Account({ translations, userData, serverError }) {
           <link rel='icon' href='hommatori_favicon.ico' />
       </Head>
 
-      <main> {
+      <main className={styles.main}> {
         userData ?
-        <><div>account</div>
+        <><div className={styles.account_navbar}>
+          <Link href='/account/profile'>{translations.account.profile}</Link>
+          <Link href='/account/myads'>{translations.account.myads}</Link>
+          <button onClick={() => logout()}>{translations.account.logout}</button>
+        </div>
           
           <h1>Welcome, {userData.userid}!</h1>
           <p>Your email address is: {userData.email}</p>
-          <button onClick={() => logout()}>log out</button>
+          
+
         </> : <div onLoad={router.push('/')} />
       } </main>
     </>

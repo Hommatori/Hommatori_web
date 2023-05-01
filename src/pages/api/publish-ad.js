@@ -19,53 +19,49 @@ async function publish(req, res) {
       return
     }
 
-    console.log("FILES: " + JSON.stringify(files))
-    console.log("FILES: " + JSON.stringify(fields))
-
     try {
-        const nodeJsApiUrl = `${process.env.NODEJS_URL}/ad`
+      const response = await fetch('/api/get-api-url')
+      const nodeJsApiUrl = await response.text()
 
-        console.log("API URL: " + nodeJsApiUrl)
+      // Create a new FormData instance
+      const formData = new FormData()
 
-        // Create a new FormData instance
-        const formData = new FormData()
+      // Append all form fields
+      Object.keys(fields).forEach((key) => {
+          formData.append(key, fields[key])
+      })
 
-        // Append all form fields
-        Object.keys(fields).forEach((key) => {
-            formData.append(key, fields[key])
-        })
-
-        // Append all files
-        Object.keys(files).forEach((key) => {
-            const file = files[key]
-            formData.append('images', fs.createReadStream(file.path), file.name)
-        })
+      // Append all files
+      Object.keys(files).forEach((key) => {
+          const file = files[key]
+          formData.append('images', fs.createReadStream(file.path), file.name)
+      })
         
-    console.log("FORSM DATA: " + formData)    
-    console.log("FORSM DATA 2222: " + JSON.stringify(formData))
+      console.log("FORSM DATA: " + formData)    
+      console.log("FORSM DATA 2222: " + JSON.stringify(formData))
 
-        const http = require('http');
-        const forwardResponse = await fetch(nodeJsApiUrl, {
-        method: 'POST',
-        headers: {
-            Cookie: `accessToken=${accessToken}`,
-        },
-        body: formData,
-        agent: new http.Agent({ keepAlive: true, timeout: 60000 })
-        });
+      const http = require('http');
+      const forwardResponse = await fetch(`${nodeJsApiUrl}/ad`, {
+      method: 'POST',
+      headers: {
+          Cookie: `accessToken=${accessToken}`,
+      },
+      body: formData,
+      agent: new http.Agent({ keepAlive: true, timeout: 60000 })
+    });
 
-        if (!forwardResponse.ok) {
-            throw new Error('HTTP error! Status: ' + forwardResponse.status)
-        }
+    if (!forwardResponse.ok) {
+        throw new Error('HTTP error! Status: ' + forwardResponse.status)
+    }
 
-        const data = await forwardResponse.json()
-        console.log(data)
-        res.status(200).json(data)
+    const data = await forwardResponse.json()
+    console.log(data)
+    res.status(200).json(data)
 
-        } catch (error) {
-            console.log(error)
-            res.status(500).json({ message: 'An error occurred while forwarding the request' })
-        }
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: 'An error occurred while forwarding the request' })
+    }
   })
 }
 

@@ -80,6 +80,9 @@
 
     },
     "account": {
+      "profile": "Tilini",
+      "myads": "Minun ilmoitukseni",
+      "logout": "Kirjaudu ulos"
 
     },
     "publish": {
