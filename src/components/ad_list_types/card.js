@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../../styles/ad-card.module.css'
 import Link from 'next/link'
 
@@ -25,20 +24,6 @@ export default function Card({ data, translations }) {
         const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`
 
         return `${formattedDate} ${formattedTime}`
-    }
-    function getSingleImage(image) {
-        let imageToDisplay = null
-        if (image) {
-            try {
-                const imageArray = JSON.parse(image)
-                if (Array.isArray(imageArray)) {               
-                imageToDisplay = imageArray[0]
-                }
-            } catch {
-                imageToDisplay = image.replace(/['"\r\n]+/g, '')
-            }
-        }
-        return imageToDisplay
     }
 
     return(

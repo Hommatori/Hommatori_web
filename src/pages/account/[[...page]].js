@@ -1,16 +1,19 @@
 import Head from 'next/head'
-import styles from '../styles/account.module.css'
+import styles from '../../styles/account.module.css'
 import cookie from 'cookie'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Loader from '@/components/loader'
 
-export const getServerSideProps = async ({ req, res }) => {
+export async function getServerSideProps(context) {
+  const { req, res } = context
   const cookies = cookie.parse(req.headers.cookie || '')
   const accessToken = cookies['accessToken']
   const userCookie = cookies['userData']
   let userData = null
   let serverError = null
+  const pageToShow = context.query.page
+  console.log(pageToShow)
 
   if (!accessToken || !userCookie) {
     res.setHeader('location', '/login')
@@ -30,7 +33,6 @@ export const getServerSideProps = async ({ req, res }) => {
     })
 
     if (!response.ok) {
-      console.log(process.env.NEXTJS_URL)
       fetch(`${process.env.NEXTJS_URL}/api/logout`, {
         method: 'POST',
       }).then(res => console.log(res.status))
@@ -53,7 +55,7 @@ export const getServerSideProps = async ({ req, res }) => {
 
 export default function Account({ translations, userData, serverError }) {
   const router = useRouter()
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)  
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -77,8 +79,6 @@ export default function Account({ translations, userData, serverError }) {
     checkAuth()
   }, [])
 
-  console.log(userData)
-
   if (isLoading) {
     return <Loader />
   }  
@@ -93,8 +93,6 @@ export default function Account({ translations, userData, serverError }) {
       }
     } catch (error) {}
   }
-
-  //.log(userData)
 
   return (
     <>

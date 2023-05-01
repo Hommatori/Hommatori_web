@@ -9,21 +9,18 @@ const nextConfig = {
     // disable automatic locale detection
     localeDetection: false,
   },
-  async rewrites() { // 
-    return [
-      {
-        source: '/hommatori_favicon.ico',
-        destination: '/hommatori_favicon.ico'
-      }
-    ]
-  },
   async redirects() {
     return [
       {
-        source: '/ad/hommatori_favicon.ico', // if header param is missing from ad/adid/header, it somehow tries to direct here..
-        destination: '/hommatori_favicon.ico', // however we want a redirect to where the favicon icon actually is
-        permanent: true
-      }
+        source: '/ad/:path*/hommatori_favicon.ico',
+        destination: '/hommatori_favicon.ico',
+        permanent: true,
+      },
+      {
+        source: '/account/:path*/hommatori_favicon.ico',
+        destination: '/hommatori_favicon.ico',
+        permanent: true,
+      }      
     ]
   },
   images: {
@@ -33,6 +30,7 @@ const nextConfig = {
       'images.blob.core.windows.net'
     ],
   },
+  output:"standalone",
 }
 
 module.exports = nextConfig
