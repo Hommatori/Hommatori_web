@@ -105,6 +105,7 @@ export default function Form({ translations, userData, serverError }) {
           router.push('/login')
         } else {
           let token = data.token
+          
           // Prepare form data
           const formData = new FormData()
           formData.append('type', type)
