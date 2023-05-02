@@ -6,7 +6,6 @@ import AdConfirmation from '../components/form_components/ad-confirmation.js'
 import AdSuccess from '../components/form_components/ad-success.js'
 import styles from '../styles/form.module.css'
 import Loader from '@/components/loader.js'
-import api from '../../api.json'
 import Modal from '../components/modal.js'
 
 export const getServerSideProps = async ({ req, res }) => {
@@ -33,7 +32,7 @@ export const getServerSideProps = async ({ req, res }) => {
       },
     })
     if (!response.ok) {
-      fetch(`${process.env.NEXTJS_URL}/api/logout`, {
+      fetch(`/api/logout`, {
         method: 'POST',
       })
       res.setHeader('location', '/login')
@@ -130,7 +129,10 @@ export default function Form({ translations, userData, serverError }) {
           })
 
           try {
-            const response = await fetch(`${api}/ad`, {
+            const res = await fetch('/api/get-api-url')
+            const nodeJsApiUrl = await res.text()
+
+            const response = await fetch(`${nodeJsApiUrl}/ad`, {
               method: 'POST',
               body: formData,
               headers: {

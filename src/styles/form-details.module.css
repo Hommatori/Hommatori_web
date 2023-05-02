@@ -186,13 +186,14 @@
     padding-right: 5px;
     width: 75% !important;
     min-height: 100px;
-    height: 400px;
+    height: 200px;
     border-radius: 0.2rem;
     border: 1px solid lightgrey;
     font-size: medium;
     font-family: inherit;
     font-style: inherit;
     resize: none;
+    overflow-y: scroll;
 }
 
 .form_textarea_description::-webkit-resizer {
@@ -444,13 +445,14 @@
     .form_textarea_description {
         width: 95% !important;
         min-height: 100px;
-        height: 300px;
+        height: 200px;
         border-radius: 0.2rem;
         border: 1px solid lightgrey;
         font-size: medium;
         font-family: inherit;
         font-style: inherit;
         resize: none;
+        overflow-y: scroll;
     }
     
     .form_textarea_description::-webkit-resizer {

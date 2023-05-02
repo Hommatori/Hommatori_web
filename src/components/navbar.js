@@ -85,7 +85,7 @@ export default function Navbar({ locale, translations }) {
                         </Link></>
                         :<>
                         { userName && !shouldShowLogin && (
-                            <><Link href='/account' className={styles.account_btn}>
+                            <><Link href='/account/profile' className={styles.account_btn}>
                                 <div className={styles.account_btn_img_wrapper}>
                                     <Image
                                         src={user_icon_white}
@@ -102,7 +102,7 @@ export default function Navbar({ locale, translations }) {
                                 </div>
                                 {userName}
                             </Link>
-                            <Link href='/account' className={styles.account_btn_mobile}>
+                            <Link href='/account/profile' className={styles.account_btn_mobile}>
                                 <Image
                                     src={login_icon}
                                     alt={translations.log_in}

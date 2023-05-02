@@ -62,7 +62,7 @@ export default function ResultNavContainer({ total_rows, maxResultsToDisplay, pa
         setEndIndex(totalPages - 1)
       } else if (page <= maxButtons / 2) { // if the current page is close to the beginning of the range
         // show the first maxButtons pages
-        setStartIndex(0);
+        setStartIndex(0)
         setEndIndex(maxButtons - 1)
       } else if (page > totalPages - maxButtons / 2) { // if the current page is close to the end of the range
         // show the last maxButtons pages

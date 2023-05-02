@@ -22,7 +22,7 @@ export default function AdDetails ({
     function handleRegionChange(value) {
         setRegion(value)
         setMunicipality('')
-        document.getElementById('select_municipality').selectedIndex = -1;
+        document.getElementById('select_municipality').selectedIndex = -1
     }
 
     function handleNextStep(e) {
@@ -243,8 +243,8 @@ export default function AdDetails ({
                             max='99999999'
                             className={styles.form_price_input}
                             onChange={(e) => {
-                                const newPrice = e.target.value === '' ? '' : Math.min(e.target.value, 99999999);
-                                setPrice(newPrice);
+                                const newPrice = e.target.value === '' ? '' : Math.min(e.target.value, 99999999)
+                                setPrice(newPrice)
                             }}
                             autoComplete='off'
                             required /><span className={styles.eur_mark }>€</span>
@@ -286,7 +286,7 @@ export default function AdDetails ({
                     <span className={styles.form_bottom_valuehint}>{translations.publish.valuehint_phonenumber}</span>
                 </div>
             </div> 
-            <button value='submit' className={styles.submit}>{translations.publish.next} &#11162;</button>   
+            <button value='submit' className={styles.submit}>{translations.publish.next}</button>   
             </form>
         </div>
     )

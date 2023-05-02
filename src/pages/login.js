@@ -101,7 +101,7 @@ export default function Login({ locale, translations, source }) {
             name='email'
             placeholder={translations.login.email}
             autoComplete='off'
-            //required pattern='[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+            required pattern='[a-zäöåA-ZÄÖÅ0-9._%+-]+@[a-zäöåA-ZÄÖÅ0-9.-]+\.[a-zäöåA-ZÄÖÅ]{2,}$'
             title={translations.login.email_hint}
           />
           <input

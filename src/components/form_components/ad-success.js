@@ -2,11 +2,9 @@ import React from 'react'
 import styles from '../../styles/form-success.module.css'
 import Link from 'next/link'
 
-
 //This is part 3/3 of the multiphase ad upload form
 export default function AdDetails ({ translations, adid, fname }) {
     const linkToNewAd = adid ? `ad/${adid}` : '/notfound'
-
 
     return (
         <div>

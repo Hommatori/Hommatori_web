@@ -7,8 +7,6 @@ import Loader from '@/components/loader'
 import Link from 'next/link'
 import Modal from '@/components/modal'
 import Image from 'next/image'
-import DeleteModal from '@/components/delete-modal'
-import DeleteAccountModal from '@/components/delete-account-modal'
 
 export async function getServerSideProps(context) {
   const { req, res } = context
@@ -95,8 +93,7 @@ export default function Account({ translations, userData, serverError, pageToSho
   const [isLoading, setIsLoading] = useState(true)
   const [showError, setShowError] = useState(false)
   const [errorModalText, setErrorModalText] = useState(false)
-  const [showDelete, setShowDelete] = useState(null)
-  const [showDeleteAccount, setShowDeleteAccount] = useState(false)
+
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -173,82 +170,6 @@ export default function Account({ translations, userData, serverError, pageToSho
     return `${formattedDate} ${formattedTime}`
   }
 
-  async function handleDelete(){
-    try {
-      const res = await fetch('/api/return-token')
-      const data = await res.json()
-          
-      if (!data.authenticated) {
-        router.push('/login')
-      } else {
-        let token = data.token
-        const res = await fetch('/api/get-api-url')
-        const nodeJsApiUrl = await res.text()
-
-        const response = await fetch(`${nodeJsApiUrl}/ad/${showDelete}`, {
-          method: 'DELETE',
-          headers: {
-            credentials: 'include',
-            'Authorization': `Bearer ${token}`
-          },
-        })            
-
-        if (!response.ok) {           
-          const resData = await response.json()   
-          setErrorModalText(resData.message)
-          setShowError(true)
-        } else {
-          setShowDelete(null)
-          window.location.reload()
-        }
-      }          
-    } catch(err){
-      setShowError('Error: could not delete ad')
-    }    
-  }
-
-  async function deleteAccount() {
-    setShowDeleteAccount(true)
-  }
-
-  async function handleDeleteAccount(){
-    try {
-      const res = await fetch('/api/return-token')
-      const data = await res.json()
-          
-      if (!data.authenticated) {
-        router.push('/login')
-      } else {
-        let token = data.token
-        const res = await fetch('/api/get-api-url')
-        const nodeJsApiUrl = await res.text()
-
-        const response = await fetch(`${nodeJsApiUrl}/userr/${userData.userid}`, {
-          method: 'DELETE',
-          headers: {
-            credentials: 'include',
-            'Authorization': `Bearer ${token}`
-          },
-        })            
-
-        if (!response.ok) {           
-          const resData = await response.json()   
-          setErrorModalText(resData.message)
-          setShowError(true)
-        } else {
-          setShowDelete(null)
-          logout()
-        }
-      }          
-    } catch(err){
-      setShowError('Error: could not delete ad')
-    }    
-  }
-
-  async function deleteAccount() {
-    setShowDeleteAccount(true)
-  }
-
   return (
     <>
       <Head>
@@ -267,24 +188,6 @@ export default function Account({ translations, userData, serverError, pageToSho
       </Head>
 
       <main className={styles.main}>
-      { showDelete ? <DeleteModal
-        title={translations.account.wanna_delete}
-        yes={translations.account.yes_delete}
-        no={translations.account.dont_delete}
-        message={translations.account.cant_undo}
-        onCancel={() => setShowDelete(null)}
-        onDelete={handleDelete} /> : null }
-
-      { !showDelete && userData && showDeleteAccount ? <DeleteAccountModal
-        email={userData.email}
-        instructions={translations.account.delete_acc_instructions}
-        title={translations.account.wanna_delete_acc}
-        yes={translations.account.yes_delete_acc}
-        no={translations.account.dont_delete_acc}
-        message={translations.account.cant_undo_acc}
-        onCancel={() => setShowDeleteAccount(null)}
-        onDelete={handleDeleteAccount} /> : null }
-
         {isLoading ? <Loader /> : null}
         {!isLoading && userData ? (
           <>
@@ -311,7 +214,7 @@ export default function Account({ translations, userData, serverError, pageToSho
             { pageToShow != 'myads' ? (
               <div className={styles.accountDataWrapper}>
                 <div className={styles.mydetails_wrapper}>
-                  <h3 className={styles.header}>{translations.account.header}</h3>
+                  <h3 className={styles.header}>omat tiedot</h3>
                   <div className={styles.mydetails_row}>
                   <p className={styles.mydetails_title}>{translations.account.fname}:</p>
                   <p className={styles.mydetails_value}>{userData.fname}</p>
@@ -335,54 +238,47 @@ export default function Account({ translations, userData, serverError, pageToSho
                   <div className={styles.created_at}>{translations.account.creation_date}: {getDate(userData.creation_time)}</div>
                 </div>
 
-                <div className={styles.mydetails_wrapper_options}>
-                  <h3 className={styles.header}>{translations.account.options}</h3>
-                  <p className={styles.btn_editad} onClick={() => alert('This action has not been implemented yet :/')}>{translations.account.edit_account}</p>
-                  <p className={styles.btn_deletead} onClick={() => deleteAccount()}>{translations.account.delete_account}</p>
+                <div className={styles.mydetails_wrapper}>
+                  <h3 className={styles.header}>omat tiedot</h3>
+                  <div className={styles.mydetails_row}>
+                    <p className={styles.mydetails_title}>mydetails</p>
+                    <p className={styles.mydetails_value}>mydetails</p>
+                  </div>
                 </div>
               </div>
-
             ) : (
-
               !userData.length ? <p>{translations.account.no_ads}</p> :
               <><p>{translations.account.you_have} {userData.length} {translations.account.ads}</p>
               { userData.length && userData.map((item, index) => {
-            return <div className={styles.wrapper} key={index}>
-              <Link
-                    className={index == 0 ? styles.firstSingleAd : styles.singleAd}
-                    key={item.adid}
-                    href={`/ad/${item.adid}/${item.header}`}>
-                  {
-                      item.image != null && JSON.parse(item.image).length != 0 ?
-                      <div className={styles.singleAdImageWrapper}>
-                          <Image
-                              src={getSingleImage(item.image)}
-                              alt='hommatori'
-                              as='image'
-                              fill
-                              style={{ objectFit: 'fill' }}  
-                          /> 
-                      </div> : <></>
-                  }
-                  
-                  <div className={styles.singleAdData}>
-                      <div className={styles.singleAdDataTop}>
-                          <h3 className={styles.header}>{item.header}</h3>                        
-                          <p className={styles.description}>{item.description}</p>
-                      </div>
-                      <div className={styles.singleAdDataBottom}>
-                          <div className={styles.price}>{item.price} €</div>
-                          {item.region}, {item.municipality} { getDate(item.date) }
-                      </div>                    
-                  </div>
-                </Link>
-
-                <div className={styles.options}>
-                  <p className={`${styles.btn_editad} ${styles.btn_disabled}`}>{translations.account.edit}</p>
-                  <p className={styles.btn_deletead} onClick={() => setShowDelete(item.adid)}>{translations.account.deletead}</p>                  
+            return <Link
+                        className={index == 0 ? styles.firstSingleAd : styles.singleAd}
+                        key={item.adid}
+                        href={`/ad/${item.adid}/${item.header}`}>
+                {
+                    item.image != null && JSON.parse(item.image).length != 0 ?
+                    <div className={styles.singleAdImageWrapper}>
+                        <Image
+                            src={getSingleImage(item.image)}
+                            alt='hommatori'
+                            as='image'
+                            fill
+                            style={{ objectFit: 'fill' }}  
+                        /> 
+                    </div> : <></>
+                }
+                
+                <div className={styles.singleAdData}>
+                    <div className={styles.singleAdDataTop}>
+                        <h3 className={styles.header}>{item.header}</h3>                        
+                        <p className={styles.description}>{item.description}</p>
+                    </div>
+                    <div className={styles.singleAdDataBottom}>
+                        <div className={styles.price}>{item.price} €</div>
+                        {item.region}, {item.municipality} { getDate(item.date) }
+                    </div>
                 </div>
-              </div>            
-            })}</>
+            </Link>
+        })}</>
             )}
           </>
         ) : (

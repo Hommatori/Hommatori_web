@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 import Modal from '../../../components/modal.js'
 import styles from '../../../styles/ad.module.css'
 import Link from 'next/link'
@@ -17,8 +16,8 @@ export async function getServerSideProps(context) {
         const dbQuery = await fetch(`${address}/ad/${adid}`)
         dbResponse = await dbQuery.json()
         try {
-            const dbQueryPublisher = await fetch(`${address}/userr/ad/${dbResponse.userid}`);           
-            dbPublisher = await dbQueryPublisher.json();
+            const dbQueryPublisher = await fetch(`${address}/userr/ad/${dbResponse.userid}`)        
+            dbPublisher = await dbQueryPublisher.json()
         } catch(e) {
             errorMsg = true
         }        
@@ -40,7 +39,7 @@ export async function getServerSideProps(context) {
             dbPublisher,
             errorMsg
         }
-    };   
+    }
 }
 
 // this is a single ad page

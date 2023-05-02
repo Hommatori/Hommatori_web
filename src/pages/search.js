@@ -35,7 +35,12 @@ export async function getServerSideProps(context) {
         }        1page
     } else {*/
     try {
-        const dbQuery = await fetch(`${address}/ad/withparams/get?type=${type}&region=${region}&order=${order}&page=${page}&query=${query}`)
+        const dbQuery = await fetch(`${address}/ad/withparams/get?type=${type}&region=${region}&order=${order}&page=${page}&query=${query}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }              
+        })
         dbResponse = await dbQuery.json()
     } catch(e) {
         errorMsg = true
