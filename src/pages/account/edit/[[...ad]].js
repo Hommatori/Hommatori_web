@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import styles from '../../styles/account.module.css'
+import styles from '../../../styles/account.module.css'
 import cookie from 'cookie'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
