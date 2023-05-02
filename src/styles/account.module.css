@@ -8,5 +8,349 @@
 }
 
 .account_navbar {
+    margin-top: 100px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 3px solid #25db55;
+    border-bottom-width: fit-content;
+}
+
+.navbar_right {
+    margin-top: 12px !important;    
+}
+
+.navBtn_inactive {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    cursor: pointer;
+    font-size: larger;
+    color: black;
+    font-weight: bold;
+    border-left: 2px solid transparent;
+    border-top: 2px solid transparent;
+    border-right: 2px solid transparent;
+    text-decoration: none;
+}
+
+.navBtn:visited {
+    color: black;
+}
+
+.navBtn_active {
+    cursor: default;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #25db55;
+    font-size: larger;
+    color: black;
+    text-decoration: none;
+    border-left: 2px solid #25db55;
+    border-top: 2px solid #25db55;
+    border-right: 2px solid #25db55;
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+    font-weight: bold;
+    box-shadow: rgba(0, 0, 0, 0.30) 0px -1px 3px;
+}
+
+.navBtn_inactive:hover {
+    color: white;
+    background-color: black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    text-decoration: none;
+    border-left: 2px solid black;
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+    box-shadow: rgba(0, 0, 0, 0.30) 0px -1px 3px;
+}
+
+.logoutBtn {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding: 10px;
+    cursor: pointer;
+    font-size: larger;
+    color: black;
+    font-weight: bold;
+    border-left: 2px solid transparent;
+    border-top: 2px solid transparent;
+    border-right: 2px solid transparent;
+}
+
+.logoutBtn:hover {
+    color: white;
+    background-color: black;
+    padding: 10px;
+    text-decoration: none;
+    border-left: 2px solid black;
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+    box-shadow: rgba(0, 0, 0, 0.30) 0px -1px 3px;
+}
+
+.btnleft {
+   margin-right: 20px;
+}
+
+.mydetails_wrapper {
+    background-color: rgb(251, 251, 251);
+    padding: 20px;
+    border-radius: 0.3rem;
+    box-shadow: rgba(0, 0, 0, 0.10) 0px 1px 3px;
+}
+
+.mydetails_row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.mydetails_title {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    font-weight: bold;
+    min-width: 130px;
+}
+
+.mydetails_value {
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.accountDataWrapper {
+    margin-top: 40px;
+    display: flex;
+    gap: 40px;
+}
+
+.header {
+    margin-block-start: 0;
+    margin-block-end: 15px;
+}
+
+.created_at {
+    margin-top: 50px;
+    font-size: smaller;
+}
+
+.firstSingleAd {
+    width: 100%;
+    text-decoration: none;
+    transition: all 0.1s;
+    padding-left: 10px;
+    padding-right: 10px; 
+    padding-top: 15px;
+    padding-bottom: 15px;
+    max-height: 160px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    cursor: pointer;
+    color: black;
+    height: 140px;
+}
+
+.firstSingleAd:hover {    
+    background-color: #02fb4419;
+}
+
+.singleAd {
+    width: 100%;
+    height: 140px;
+    color: black;
+    text-decoration: none;
+    transition: all 0.1s;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 15px;
+    max-height: 160px;
+    display: flex;
+    flex-direction: row;
+    border-top: 2px solid #25db55;
+    gap: 15px;
+    cursor: pointer;
+}
+
+.singleAd:hover {
+    background-color: #02fb4419;
+}
+
+.singleAdImageWrapper {
+    position: relative;
+    width: 250px;
+    margin-top: 10px;
+    margin-right: 10px;
+    border-radius: 0.2rem;
+}
+
+.singleAdData {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;    
+}
+
+.singleAdDataTop {
+    display: flex;
+    flex-direction: column;
+    max-height: 120px;
+}
+
+.singleAdDataBottom {
+    display: flex;    
+    justify-content: space-between;
+    font-size: 15px;
+    margin-top: 15px;
+}
+
+.header {
+    margin-block-start: 1em;
+    margin-block-end: 20px;
+    font-weight: bold;
+}
+
+.description {
+    color: #777777;
+    overflow: hidden;
+    font-size: 15px;
+}
+
+.price {
+    font-size: large;
+    font-weight: bold;
+    color: #04b733;
+}
+
+.options {
+    margin-left: 20px;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn_deletead {
+    cursor: pointer;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    text-align: center;
+    padding: 7px;
+    background-color: hsl(0, 100%, 63%);
+    border: 3px solid hsl(0, 100%, 63%);
+    color: white;
+    border-radius: 0.2rem;
+}
+
+.btn_editad {
+    cursor: pointer;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    text-align: center;
+    padding: 7px;
+    border: 3px solid #25db55;
+    background-color: #25db55;
+    color: white;
+    border-radius: 0.2rem;
+}
+
+.btn_deletead:hover {
+    text-align: center;
+    padding: 7px;
+    background-color: transparent;
+    color:hsl(0, 100%, 63%);
+    border-radius: 0.2rem;
+}
+
+.btn_editad:hover {
+    text-align: center;
+    padding: 7px;
+    background-color: transparent;
+    color: #25db55;
+    border-radius: 0.2rem;
+}
+
+.wrapper {
+    display: flex;
+}
+
+.btn_disabled {
+    cursor: not-allowed;
+    background-color: #e2e2e2;
+    border-color: #e2e2e2;
+}
+
+.btn_disabled:hover {
+    background-color: #e2e2e2 !important;
+    border-color: #e2e2e2 !important;
+    color: white !important;
+}
+
+.mydetails_wrapper_options {
+    background-color: rgb(251, 251, 251);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 0.3rem;
+    box-shadow: rgba(0, 0, 0, 0.10) 0px 1px 3px;
+}
+
+@media screen and (max-width: 800px){
+    .firstSingleAd {
+        padding-left: 0px;
+        padding-right: 0px; 
+        gap: 10px;
+        height: auto;
+    }
+    .singleAd {
+        height: auto;
+        padding-left: 0px;
+        padding-right: 0px;
+        gap: 10px;
+    }
     
+    .singleAdImageWrapper {
+        position: relative;
+        margin-top: 15px;
+        margin-right: 0px;
+        border-radius: 0.2rem;
+        width: 100px;
+        height: 80px;
+    }
+    
+    .singleAdDataTop {
+        display: flex;
+        flex-direction: column;
+        max-height: auto;
+    }
+    
+    .singleAdDataBottom {
+        font-size: x-small;
+    }
+    
+    .header {
+        margin-block-start: 0.5em;
+        font-size: small;
+    }
+    
+    .description {
+        font-size: 13px;
+        max-height: 50px;
+        font-size: x-small;
+    }
+    
+    .price {
+        font-size: small;
+    }
 }

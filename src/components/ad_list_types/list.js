@@ -13,7 +13,7 @@ export default function List({ data, translations }) {
         const monthNames = translations.search.list_of_months
 
         // get the day and month from the date object
-        const day = date.getUTCDate();
+        const day = date.getUTCDate()
         const month = monthNames[date.getUTCMonth()]
 
         // get the hours and minutes from the date object

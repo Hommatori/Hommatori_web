@@ -3,7 +3,7 @@ import styles from '../../styles/form-confirmation.module.css'
 import Image from 'next/image'
 
 //This is part 2/3 of the multiphase ad upload form
-const Confirmation = ({ translations, prevStep,  values, userData, submit }) => {
+export default function Confirmation({ translations, prevStep,  values, userData, submit }) {
 
     useEffect(() => { //automatically scrolls to the top of the page, useful for mobile userss
         window.scrollTo(0, 0)
@@ -85,13 +85,10 @@ const Confirmation = ({ translations, prevStep,  values, userData, submit }) => 
                 </div>
             </div>
             <div className={styles.bottom_btn_row}>
-                <button className={styles.goBack} onClick={(e) => goBack(e)}>&#11160; {translations.publish.edit}</button>
+                <button className={styles.goBack} onClick={(e) => goBack(e)}>{translations.publish.edit}</button>
                 <button className={styles.publishBtn} onClick={(e) => submit(e)}>{translations.publish.publish}</button>
             </div>
         </div>        
         </>
-)
+    )
 }
-
-
-export default Confirmation;

@@ -32,7 +32,7 @@ export const getServerSideProps = async ({ req, res }) => {
       },
     })
     if (!response.ok) {
-      fetch(`${process.env.NEXTJS_URL}/api/logout`, {
+      fetch(`/api/logout`, {
         method: 'POST',
       })
       res.setHeader('location', '/login')
@@ -105,7 +105,6 @@ export default function Form({ translations, userData, serverError }) {
           router.push('/login')
         } else {
           let token = data.token
-          
           // Prepare form data
           const formData = new FormData()
           formData.append('type', type)
